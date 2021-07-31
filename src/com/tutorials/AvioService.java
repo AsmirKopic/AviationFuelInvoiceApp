@@ -34,9 +34,7 @@ public class AvioService {
     }
 
     public void listOfAirlines(){
-        for (Airline airline : listOfAirlines.values()){
-            System.out.println(airline.getName());
-        }
+        listOfAirlines.forEach((s, airline) -> System.out.println(airline));
     }
 }
 
