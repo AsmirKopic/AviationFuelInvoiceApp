@@ -21,6 +21,15 @@ public class Main {
         avioService.addAirline(temp);
 
         avioService.listOfAirlines();
+        System.out.println("..............................");
+
+        try {
+            avioService.removeAirline(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        avioService.listOfAirlines();
 
     }
 }

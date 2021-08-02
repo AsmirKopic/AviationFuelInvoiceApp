@@ -23,12 +23,10 @@ public class AvioService {
 
     public void removeAirline(Airline airline){
         if (airline != null){
-            Airline inList = listOfAirlines.getOrDefault(airline.getName(), airline);
-            if (inList != airline){
-                System.out.println("No Airline to remove.");
-            } else {
+            if (listOfAirlines.containsValue(airline)){
                 listOfAirlines.remove(airline);
-                System.out.println(airline + " removed from list.");
+            } else{
+                System.out.println("No match airline.");
             }
         }
     }
