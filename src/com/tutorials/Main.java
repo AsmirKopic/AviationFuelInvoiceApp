@@ -1,5 +1,7 @@
 package com.tutorials;
 
+import com.tutorials.model.Airline;
+
 public class Main {
 
     private static AvioService avioService = new AvioService();

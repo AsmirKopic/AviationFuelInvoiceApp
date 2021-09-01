@@ -1,5 +1,7 @@
 package com.tutorials;
 
+import com.tutorials.model.Airline;
+
 import java.util.HashMap;
 import java.util.Map;
 

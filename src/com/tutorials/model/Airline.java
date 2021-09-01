@@ -1,4 +1,4 @@
-package com.tutorials;
+package com.tutorials.model;
 
 public class Airline {
     public String name;
