@@ -2,12 +2,12 @@ package com.tutorials.model;
 
 public class Airline {
     public String name;
-    private double price;
+    private double priceTerms;
     private int paymentTerms;
 
-    public Airline(String name, double price, int paymentTerms) {
+    public Airline(String name, double priceTerms, int paymentTerms) {
         this.name = name;
-        this.price = price;
+        this.priceTerms = priceTerms;
         this.paymentTerms = paymentTerms;
     }
 
@@ -15,17 +15,24 @@ public class Airline {
         return name;
     }
 
-    public double getPrice() {
-        return price ;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPriceTerms() {
+        return priceTerms;
+    }
+
+    public void setPriceTerms(double priceTerms) {
+        this.priceTerms = priceTerms;
     }
 
     public int getPaymentTerms() {
         return paymentTerms;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+    public void setPaymentTerms(int paymentTerms) {
+        this.paymentTerms = paymentTerms;
     }
 
     @Override
@@ -35,6 +42,6 @@ public class Airline {
 
     @Override
     public String toString() {
-        return this.name + " price terms: " + getPrice() + " , payment terms: " + getPaymentTerms() ;
+        return this.name + " price terms: " + getPriceTerms() + " , payment terms: " + getPaymentTerms() ;
     }
 }
