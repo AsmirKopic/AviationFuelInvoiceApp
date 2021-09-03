@@ -1,31 +1,18 @@
-package com.tutorials.db;
+package com.tutorials.database;
 
 import java.sql.*;
-import java.util.ArrayList;
 
-public class Database {
+public class AirlineDatabase {
 
     public static final String DB_NAME = "aviationFuelService.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\AviationFuel\\" + DB_NAME;
 
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (name) VALUES (?)";
-    public static final String NEW_INVOICE = "INSERT INTO invoices " +
-                        "(airline, invoice_number, date, flight_number, registration, quantity_lit)" +
-                        " VALUES(?, ?, ?, ?, ?, ?)";
-
-//    public static final String QUERY_ARTIST = "SELECT " + COLUMN_ARTIST_ID + " FROM " +
-//            TABLE_ARTISTS + " WHERE " + COLUMN_ARTIST_NAME + " = ?";
-//    public static final String QUERY_ALBUM = "SELECT " + COLUMN_ALBUM_ID + " FROM " +
-//            TABLE_ALBUMS + " WHERE " + COLUMN_ALBUM_NAME + " = ?";
-
 
     private Connection conn;
     private PreparedStatement newAirline;
-    private PreparedStatement newInvoice;
-
-    private PreparedStatement queryAirlines;
-    private PreparedStatement queryInvoices;
-    private PreparedStatement queryInvoicesByAirline;
+    private PreparedStatement queryAirline;
+    private PreparedStatement queryAllAirlines;
 
 
     public boolean open(){
@@ -44,23 +31,19 @@ public class Database {
         }
     }
 
-    public void close(){
-        try{
-//            if (insertIntoArtists != null) {
-//                insertIntoArtists.close();
+//    public void close(){
+//        try{
+//
 //            }
-//            if (insertIntoAlbums != null){
-//                insertIntoAlbums.close();
-            }
-
-            if (conn != null){
-                conn.close();
-            }
-        } catch (SQLException e){
-            System.out.println("Couldn't close connection" + e.getMessage());
-        }
-    }
-
+//
+//            if (conn != null){
+//                conn.close();
+//            }
+//        } catch (SQLException e){
+//            System.out.println("Couldn't close connection" + e.getMessage());
+//        }
+//    }
+//
 //         ** ListOfAirlines, ListAllInvoices, ListInvoicesByAirline, ListInvoicesByDate
 //    public List<Artist> queryArtist(){
 //
