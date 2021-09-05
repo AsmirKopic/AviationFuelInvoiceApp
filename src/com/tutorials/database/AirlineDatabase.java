@@ -7,7 +7,12 @@ public class AirlineDatabase {
     public static final String DB_NAME = "aviationFuelService.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\AviationFuel\\" + DB_NAME;
 
-    public static final String INSERT_AIRLINE = "INSERT INTO airlines (name) VALUES (?)";
+    public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
+                                                "VALUES (?,?, ?)";
+
+    public static final String SELECT_AIRLINE = "SELECT * FROM airlines WHERE name = ?";
+
+
 
     private Connection conn;
     private PreparedStatement newAirline;
@@ -18,11 +23,9 @@ public class AirlineDatabase {
     public boolean open(){
         try{
             conn = DriverManager.getConnection(CONNECTION_STRING);
-//            insertIntoArtists = conn.prepareStatement(INSERT_ARTIST, Statement.RETURN_GENERATED_KEYS);
-//            insertIntoAlbums = conn.prepareStatement(INSERT_ALBUMS, Statement.RETURN_GENERATED_KEYS);
-//            insertIntoSongs = conn.prepareStatement(INSERT_SONGS);
-//            queryArtist = conn.prepareStatement(QUERY_ARTIST);
-//            queryAlbum = conn.prepareStatement(QUERY_ALBUM);
+                newAirline = conn.prepareStatement(INSERT_AIRLINE);
+                queryAirline = conn.prepareStatement(SELECT_AIRLINE);
+
 
             return true;
         } catch (SQLException e){
