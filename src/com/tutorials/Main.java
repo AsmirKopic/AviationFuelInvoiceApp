@@ -13,5 +13,7 @@ public class Main {
     // Quantities will be calculated using specific weight (0.8) on time of refueling.
 
 
+
+
     }
 }
