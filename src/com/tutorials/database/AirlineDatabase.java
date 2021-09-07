@@ -55,13 +55,14 @@ public class AirlineDatabase {
         }
     }
 
-    public void createAirline(Airline airline){
+    public void insertAirline(String name, double priceTerms, int paymentTerms){
+        // execute code here
     }
 
     public List<Airline> listOfAirlines(){
 
         try(Statement statement = conn.createStatement();
-            ResultSet results = statement.executeQuery("SELECT * FROM airlines")){
+            ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)){
 
             List<Airline> airlines = new ArrayList<>();
             while (results.next()){
