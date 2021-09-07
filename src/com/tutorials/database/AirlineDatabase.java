@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirlineDatabase {
+public class AirlineDatabase implements AirlineDAO{
 
     public static final String DB_NAME = "aviationFuelService.db";
     //    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
@@ -25,6 +25,7 @@ public class AirlineDatabase {
     private PreparedStatement queryAirline;
     private PreparedStatement deleteAirline;
 
+    @Override
     public boolean open() {
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
@@ -38,6 +39,7 @@ public class AirlineDatabase {
         }
     }
 
+    @Override
     public void close() {
         try {
             if (newAirline != null) {
@@ -57,6 +59,7 @@ public class AirlineDatabase {
         }
     }
 
+    // fix this method
     public boolean insertAirline(String name, double priceTerms, int paymentTerms) throws SQLException {
 
         // Check is airline already in database
