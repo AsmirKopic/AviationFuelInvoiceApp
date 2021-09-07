@@ -10,9 +10,8 @@ import java.util.List;
 public class AirlineDatabase {
 
     public static final String DB_NAME = "aviationFuelService.db";
-//    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
+    //    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\asmir\\Desktop\\AviationFuelTEST\\" + DB_NAME;
-
 
 
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
@@ -63,7 +62,7 @@ public class AirlineDatabase {
         // Check is airline already in database
         queryAirline.setString(1, name);
         ResultSet results = queryAirline.executeQuery();
-        if (results.next()){
+        if (results.next()) {
             return false;
         } else {
             // if airline is not in database, insert airline
@@ -73,7 +72,7 @@ public class AirlineDatabase {
 
             int update = newAirline.executeUpdate();
 
-            if (update != 1){
+            if (update != 1) {
                 throw new SQLException("Couldn't add airline.");
             } else {
                 return true;
@@ -81,13 +80,13 @@ public class AirlineDatabase {
         }
     }
 
-    public List<Airline> listOfAirlines(){
+    public List<Airline> listOfAirlines() {
 
-        try(Statement statement = conn.createStatement();
-            ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)){
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)) {
 
             List<Airline> airlines = new ArrayList<>();
-            while (results.next()){
+            while (results.next()) {
                 Airline airline = new Airline();
                 airline.setName(results.getString(2));
                 airline.setPriceTerms(results.getDouble(3));
@@ -95,7 +94,7 @@ public class AirlineDatabase {
                 airlines.add(airline);
             }
             return airlines;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Cant execute query " + e.getMessage());
             return null;
         }
@@ -107,7 +106,7 @@ public class AirlineDatabase {
             queryAirline.setString(1, name);
             ResultSet results = queryAirline.executeQuery();
 
-            if (results.next()){
+            if (results.next()) {
                 Airline airline = new Airline();
                 airline.setName(results.getString(2));
                 airline.setPriceTerms(results.getDouble(3));
@@ -123,23 +122,21 @@ public class AirlineDatabase {
         }
     }
 
+    public void editAirline(Airline airline) {
+    }
+
     // need to fix this method
     public boolean deleteAirline(String name) throws SQLException {
 
         queryAirline.setString(1, name);
         ResultSet results = queryAirline.executeQuery();
-            if (results.next()){
-                deleteAirline.setString(1, name);
-                return true;
-            } else {
-                throw new SQLException("Delete failed. ");
-            }
+        if (results.next()) {
+            deleteAirline.setString(1, name);
+            return true;
+        } else {
+            throw new SQLException("Delete failed. ");
+        }
     }
-
-
-
-
-
 
 
 }

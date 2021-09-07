@@ -24,17 +24,6 @@ public class Main {
         List<Airline> airlines = airlineDb.listOfAirlines();
         airlines.forEach(airline -> System.out.println(airline));
 
-        //insert airline
-        airlineDb.insertAirline("Test Airline", 204, 15);
-
-        System.out.println(airlineDb.insertAirline("jos jedan test", 24, 13));
-
-
-        System.out.println(airlineDb.selectAirline("Air Arabia"));
-
-        airlineDb.deleteAirline("Air Arabia");
-
-
 
         airlineDb.close();
     }
