@@ -3,11 +3,12 @@ package com.tutorials;
 import com.tutorials.database.AirlineDatabase;
 import com.tutorials.model.Airline;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
     AirlineDatabase airlineDb = new AirlineDatabase();
     if (!airlineDb.open()){
         System.out.println("Cant open datasource");
@@ -19,12 +20,16 @@ public class Main {
     // Quantities will be calculated using specific weight (0.8) on time of refueling.
 
 
-
+        // print list of airlines
         List<Airline> airlines = airlineDb.listOfAirlines();
-
         airlines.forEach(airline -> System.out.println(airline));
 
+        //insert airline
+        airlineDb.insertAirline("Test Airline", 204, 15);
 
+        System.out.println(airlineDb.insertAirline("jos jedan test", 24, 13));
+
+        airlineDb.selectAirline("Air Arabia");
 
 
         airlineDb.close();

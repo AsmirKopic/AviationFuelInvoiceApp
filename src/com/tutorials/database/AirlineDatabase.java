@@ -10,7 +10,10 @@ import java.util.List;
 public class AirlineDatabase {
 
     public static final String DB_NAME = "aviationFuelService.db";
-    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
+//    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
+    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\asmir\\Desktop\\AviationFuelTEST\\" + DB_NAME;
+
+
 
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
             "VALUES ( ?, ?, ?)";
@@ -55,8 +58,27 @@ public class AirlineDatabase {
         }
     }
 
-    public void insertAirline(String name, double priceTerms, int paymentTerms){
-        // execute code here
+    public int insertAirline(String name, double priceTerms, int paymentTerms) throws SQLException {
+
+        // Check is airline already in database
+        queryAirline.setString(1, name);
+        ResultSet results = queryAirline.executeQuery();
+        if (results.next()){
+            return results.getInt(1);
+        } else {
+            // if airline is not in database, insert airline
+            newAirline.setString(1, name);
+            newAirline.setDouble(2, priceTerms);
+            newAirline.setInt(3, paymentTerms);
+
+            int update = newAirline.executeUpdate();
+
+            if (update != 1){
+                throw new SQLException("Couldn't add airline.");
+            } else {
+                return update;
+            }
+        }
     }
 
     public List<Airline> listOfAirlines(){
@@ -79,60 +101,31 @@ public class AirlineDatabase {
         }
     }
 
+    public Airline selectAirline(String name) {
 
+        try {
+            queryAirline.setString(1, name);
+            ResultSet results = queryAirline.executeQuery();
 
-//         ** ListOfAirlines, ListAllInvoices, ListInvoicesByAirline, ListInvoicesByDate
+            if (results.next()){
+                Airline airline = new Airline();
+                airline.setName(results.getString(2));
+                airline.setPriceTerms(results.getDouble(3));
+                airline.setPaymentTerms(results.getInt(4));
+                return airline;
+            } else {
+                return null;
+            }
 
-//    public List<Artist> queryArtist(){
-//
-//        try(Statement statement = conn.createStatement();
-//            ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_ARTISTS)){
-//
-//            List<Artist> artists = new ArrayList<>();
-//            while (results.next()){
-//                Artist artist = new Artist();
-//                artist.setId(results.getInt(COLUMN_ARTIST_ID));
-//                artist.setName(results.getString(COLUMN_ARTIST_NAME));
-//                artists.add(artist);
-//            }
-//            return artists;
-//
-//        } catch (SQLException e){
-//            System.out.println("Query failed " + e.getMessage());
-//            return null;
-//        }
-//    }
-//              ** InsertInvoice // NewInvoice
-//              ** InsertAirline
-//
+        } catch (SQLException e) {
+            System.out.println("Cant select airline" + e.getMessage());
+            return null;
+        }
+    }
 
 
 
-//    private int insertAlbum(String name,int artisId) throws SQLException {
-//
-//        // Check if artist is already in database
-//        queryAlbum.setString(1, name);
-//        ResultSet results = queryAlbum.executeQuery();
-//        if (results.next()) {
-//            return results.getInt(1);
-//        } else {
-//            // if album is not into database, insert album
-//            insertIntoAlbums.setString(1, name);
-//            insertIntoAlbums.setInt(2, artisId);
-//            int affectedRows = insertIntoAlbums.executeUpdate();
-//
-//            if (affectedRows != 1) {
-//                throw new SQLException("Couldn't insert album.");
-//            }
-//
-//            ResultSet generatedKeys = insertIntoAlbums.getGeneratedKeys();
-//            if(generatedKeys.next()){
-//                return generatedKeys.getInt(1);
-//            } else {
-//                throw new SQLException("Couldn't get id from album");
-//            }
-//        }
-//    }
+
 
 
 }
