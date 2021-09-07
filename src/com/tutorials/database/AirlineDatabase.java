@@ -2,6 +2,7 @@ package com.tutorials.database;
 
 import com.tutorials.model.Airline;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class AirlineDatabase {
 
     public static final String DB_NAME = "aviationFuelService.db";
-    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\AviationFuel\\" + DB_NAME;
+    public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
 
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
             "VALUES ( ?, ?, ?)";
@@ -54,22 +55,20 @@ public class AirlineDatabase {
         }
     }
 
-    public void createAirline(Airline airline){
-
-
-    }
+//    public void createAirline(Airline airline){
+//    }
 
     public List<Airline> listOfAirlines(){
 
         try(Statement statement = conn.createStatement();
-            ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)){
+            ResultSet results = statement.executeQuery("SELECT * FROM airlines")){
 
             List<Airline> airlines = new ArrayList<>();
             while (results.next()){
                 Airline airline = new Airline();
-                airline.setName(results.getString(1));
-                airline.setPriceTerms(results.getDouble(2));
-                airline.setPaymentTerms(results.getInt(3));
+                airline.setName(results.getString(2));
+                airline.setPriceTerms(results.getDouble(3));
+                airline.setPaymentTerms(results.getInt(4));
                 airlines.add(airline);
             }
             return airlines;

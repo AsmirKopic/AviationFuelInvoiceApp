@@ -1,11 +1,17 @@
 package com.tutorials;
 
+import com.tutorials.database.AirlineDatabase;
 import com.tutorials.model.Airline;
+
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-
+    AirlineDatabase airlineDb = new AirlineDatabase();
+    if (!airlineDb.open()){
+        System.out.println("Cant open datasource");
+    }
 
     // This program represents aviation fueling invoice system
 	// Will take input from delivery voucher provided in time of aircraft refueling.
@@ -14,6 +20,13 @@ public class Main {
 
 
 
+        List<Airline> airlines = airlineDb.listOfAirlines();
 
+        airlines.forEach(airline -> System.out.println(airline));
+
+
+
+
+        airlineDb.close();
     }
 }
