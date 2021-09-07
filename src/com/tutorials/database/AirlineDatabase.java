@@ -55,8 +55,8 @@ public class AirlineDatabase {
         }
     }
 
-//    public void createAirline(Airline airline){
-//    }
+    public void createAirline(Airline airline){
+    }
 
     public List<Airline> listOfAirlines(){
 
