@@ -19,7 +19,7 @@ public class AirlineDatabase {
             "VALUES ( ?, ?, ?)";
     public static final String SELECT_ALL_AIRLINES = "SELECT * FROM airlines";
     public static final String SELECT_AIRLINE = "SELECT * FROM airlines WHERE name = ?";
-    public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE name=?";
+    public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE name = ?";
 
     private Connection conn;
     private PreparedStatement newAirline;
@@ -58,13 +58,13 @@ public class AirlineDatabase {
         }
     }
 
-    public int insertAirline(String name, double priceTerms, int paymentTerms) throws SQLException {
+    public boolean insertAirline(String name, double priceTerms, int paymentTerms) throws SQLException {
 
         // Check is airline already in database
         queryAirline.setString(1, name);
         ResultSet results = queryAirline.executeQuery();
         if (results.next()){
-            return results.getInt(1);
+            return false;
         } else {
             // if airline is not in database, insert airline
             newAirline.setString(1, name);
@@ -76,7 +76,7 @@ public class AirlineDatabase {
             if (update != 1){
                 throw new SQLException("Couldn't add airline.");
             } else {
-                return update;
+                return true;
             }
         }
     }
@@ -122,6 +122,20 @@ public class AirlineDatabase {
             return null;
         }
     }
+
+    // need to fix this method
+    public boolean deleteAirline(String name) throws SQLException {
+
+        queryAirline.setString(1, name);
+        ResultSet results = queryAirline.executeQuery();
+            if (results.next()){
+                deleteAirline.setString(1, name);
+                return true;
+            } else {
+                throw new SQLException("Delete failed. ");
+            }
+    }
+
 
 
 

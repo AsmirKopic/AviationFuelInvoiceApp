@@ -29,7 +29,11 @@ public class Main {
 
         System.out.println(airlineDb.insertAirline("jos jedan test", 24, 13));
 
-        airlineDb.selectAirline("Air Arabia");
+
+        System.out.println(airlineDb.selectAirline("Air Arabia"));
+
+        airlineDb.deleteAirline("Air Arabia");
+
 
 
         airlineDb.close();
