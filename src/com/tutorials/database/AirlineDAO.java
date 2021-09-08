@@ -15,6 +15,7 @@ public interface AirlineDAO {
     boolean insertAirline(Airline airline);
     boolean updateAirline(Airline airline);
     boolean deleteAirline(Airline airline);
+
     boolean isInDatabase(Airline airline);
 
 }
