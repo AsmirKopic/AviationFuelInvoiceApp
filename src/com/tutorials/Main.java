@@ -21,8 +21,13 @@ public class Main {
 
 
         // print list of airlines
-        List<Airline> airlines = airlineDb.listOfAirlines();
+        List<Airline> airlines = airlineDb.findAllAirlines();
         airlines.forEach(airline -> System.out.println(airline));
+
+        // insert airlines
+        Airline flyNas = new Airline("Fly Nas", 215, 15);
+        airlineDb.insertAirline(flyNas);
+        System.out.println(airlineDb.isInDatabase(flyNas));
 
 
         airlineDb.close();

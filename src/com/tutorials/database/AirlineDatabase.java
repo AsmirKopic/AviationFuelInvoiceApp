@@ -2,7 +2,6 @@ package com.tutorials.database;
 
 import com.tutorials.model.Airline;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +16,14 @@ public class AirlineDatabase implements AirlineDAO{
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
             "VALUES ( ?, ?, ?)";
     public static final String SELECT_ALL_AIRLINES = "SELECT * FROM airlines";
-    public static final String SELECT_AIRLINE = "SELECT * FROM airlines WHERE name = ?";
+    public static final String FIND_AIRLINE_BY_NAME = "SELECT * FROM airlines WHERE name = ?";
+
     public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE name = ?";
 
     private Connection conn;
     private PreparedStatement newAirline;
     private PreparedStatement queryAirline;
+    private PreparedStatement queryAirlineById;
     private PreparedStatement deleteAirline;
 
     @Override
@@ -30,7 +31,7 @@ public class AirlineDatabase implements AirlineDAO{
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
             newAirline = conn.prepareStatement(INSERT_AIRLINE);
-            queryAirline = conn.prepareStatement(SELECT_AIRLINE);
+            queryAirline = conn.prepareStatement(FIND_AIRLINE_BY_NAME);
             deleteAirline = conn.prepareStatement(DELETE_AIRLINE);
             return true;
         } catch (SQLException e) {
@@ -59,34 +60,11 @@ public class AirlineDatabase implements AirlineDAO{
         }
     }
 
-    // fix this method
-    public boolean insertAirline(String name, double priceTerms, int paymentTerms) throws SQLException {
+    @Override
+    public List<Airline> findAllAirlines() {
 
-        // Check is airline already in database
-        queryAirline.setString(1, name);
-        ResultSet results = queryAirline.executeQuery();
-        if (results.next()) {
-            return false;
-        } else {
-            // if airline is not in database, insert airline
-            newAirline.setString(1, name);
-            newAirline.setDouble(2, priceTerms);
-            newAirline.setInt(3, paymentTerms);
-
-            int update = newAirline.executeUpdate();
-
-            if (update != 1) {
-                throw new SQLException("Couldn't add airline.");
-            } else {
-                return true;
-            }
-        }
-    }
-
-    public List<Airline> listOfAirlines() {
-
-        try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)) {
+        try(Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(SELECT_ALL_AIRLINES)){
 
             List<Airline> airlines = new ArrayList<>();
             while (results.next()) {
@@ -97,13 +75,14 @@ public class AirlineDatabase implements AirlineDAO{
                 airlines.add(airline);
             }
             return airlines;
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             System.out.println("Cant execute query " + e.getMessage());
             return null;
         }
     }
 
-    public Airline selectAirline(String name) {
+    @Override
+    public Airline findAirlineByName(String name) {
 
         try {
             queryAirline.setString(1, name);
@@ -115,30 +94,55 @@ public class AirlineDatabase implements AirlineDAO{
                 airline.setPriceTerms(results.getDouble(3));
                 airline.setPaymentTerms(results.getInt(4));
                 return airline;
-            } else {
-                return null;
             }
-
         } catch (SQLException e) {
-            System.out.println("Cant select airline" + e.getMessage());
-            return null;
+            System.out.println("Cant find airline" + e.getMessage());
         }
+        return null;
     }
 
-    public void editAirline(Airline airline) {
+    @Override
+    public boolean insertAirline(Airline airline) {
+
+        if (!isInDatabase(airline)){
+            try {
+                newAirline.setString(1, airline.getName());
+                newAirline.setDouble(2, airline.getPriceTerms());
+                newAirline.setInt(3, airline.getPaymentTerms());
+
+                newAirline.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.out.println(" Cant execute query " + e.getMessage());
+            }
+        }
+        return false;
     }
 
-    // need to fix this method
-    public boolean deleteAirline(String name) throws SQLException {
+    @Override
+    public boolean updateAirline(Airline airline) {
+        return false;
+    }
 
-        queryAirline.setString(1, name);
-        ResultSet results = queryAirline.executeQuery();
-        if (results.next()) {
-            deleteAirline.setString(1, name);
-            return true;
-        } else {
-            throw new SQLException("Delete failed. ");
+    @Override
+    public boolean deleteAirline(Airline airline) {
+        return false;
+    }
+
+    @Override
+    public boolean isInDatabase(Airline airline) {
+
+        try {
+            queryAirline.setString(1, airline.getName().toString());
+            ResultSet results = queryAirline.executeQuery();
+
+            if (results.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Cant execute query" + e.getMessage());
         }
+        return false;
     }
 
 

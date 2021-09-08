@@ -5,13 +5,14 @@ public class Airline {
     private double priceTerms;
     private int paymentTerms;
 
-//    public Airline(){
-//    }
-//    public Airline(String name, double priceTerms, int paymentTerms) {
-//        this.name = name;
-//        this.priceTerms = priceTerms;
-//        this.paymentTerms = paymentTerms;
-//    }
+    public Airline(){
+    }
+
+    public Airline(String name, double priceTerms, int paymentTerms) {
+        this.name = name;
+        this.priceTerms = priceTerms;
+        this.paymentTerms = paymentTerms;
+    }
 
     public String getName() {
         return name;
