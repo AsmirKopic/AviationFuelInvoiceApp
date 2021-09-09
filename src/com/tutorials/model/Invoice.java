@@ -1,8 +1,8 @@
 package com.tutorials.model;
 
 public class Invoice {
-    private Airline airline;
     private int invoiceNumber;
+    private Airline airline;
     private String date;
     private String flightNumber;
     private String registration;

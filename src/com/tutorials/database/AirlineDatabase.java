@@ -13,18 +13,18 @@ public class AirlineDatabase implements AirlineDAO{
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\asmir\\Desktop\\AviationFuelTEST\\" + DB_NAME;
 
 
-    public static final String INSERT_AIRLINE = "INSERT INTO airlines (name, priceTerms, paymentTerms) " +
-            "VALUES ( ?, ?, ?)";
+    public static final String INSERT_AIRLINE = "INSERT INTO airlines (airline_name, priceTerms, paymentTerms) " +
+                                                "VALUES ( ?, ?, ?)";
     public static final String SELECT_ALL_AIRLINES = "SELECT * FROM airlines";
-    public static final String FIND_AIRLINE_BY_NAME = "SELECT * FROM airlines WHERE name = ?";
-
-    public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE name = ?";
+    public static final String FIND_AIRLINE_BY_NAME = "SELECT * FROM airlines WHERE airline_name = ?";
+    public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE airline_name = ?";
 
     private Connection conn;
     private PreparedStatement newAirline;
     private PreparedStatement queryAirline;
-    private PreparedStatement queryAirlineById;
     private PreparedStatement deleteAirline;
+    private PreparedStatement updateAirline;    //needs to be implemented
+
 
     @Override
     public boolean open() {
