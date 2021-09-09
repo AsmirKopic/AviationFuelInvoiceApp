@@ -2,28 +2,35 @@ package com.tutorials.model;
 
 public class Invoice {
     private int invoiceNumber;
-    private Airline airline;
+    private String airlineName;
     private String date;
     private String flightNumber;
     private String registration;
     public static final double SPECIFIC_WEIGHT = 0.795;
     private int upliftLiters;
+    private double upliftInKg;
+    private double price;
+    private double totalPrice;
 
-    public Invoice(Airline airline, int invoiceNumber, String date, String flightNumber, String registration, int upliftLiters) {
-        this.airline = airline;
-        this.invoiceNumber = invoiceNumber;
-        this.date = date;
-        this.flightNumber = flightNumber;
-        this.registration = registration;
-        this.upliftLiters = upliftLiters;
+    public Invoice() {
     }
 
-    public Airline getAirline() {
-        return airline;
+//    public Invoice(int invoiceNumber,String airline, String date, String flightNumber, String registration, int upliftLiters) {
+//        this.airlineName = airline;
+//        this.invoiceNumber = invoiceNumber;
+//        this.date = date;
+//        this.flightNumber = flightNumber;
+//        this.registration = registration;
+//        this.upliftLiters = upliftLiters;
+//        this.upliftInKg = upliftLiters * SPECIFIC_WEIGHT;
+//    }
+
+    public String getAirline() {
+        return airlineName;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    public void setAirline(String airline) {
+        this.airlineName = airline;
     }
 
     public int getInvoiceNumber() {
@@ -58,10 +65,6 @@ public class Invoice {
         this.registration = registration;
     }
 
-    public static double getSpecificWeight() {
-        return SPECIFIC_WEIGHT;
-    }
-
     public int getUpliftLiters() {
         return upliftLiters;
     }
@@ -74,4 +77,30 @@ public class Invoice {
         return upliftLiters * SPECIFIC_WEIGHT;
     }
 
+    public void setUpliftInKg(double upliftInKg) {
+        this.upliftInKg = upliftInKg;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceNumber=" + invoiceNumber +
+                ", airlineName='" + airlineName + '\'' +
+                ", date='" + date + '\'' +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", registration='" + registration + '\'' +
+                ", upliftLiters=" + upliftLiters +
+                ", upliftInKg=" + upliftInKg +
+                ", price=" + price +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

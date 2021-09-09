@@ -109,7 +109,6 @@ public class AirlineDatabase implements AirlineDAO{
                 newAirline.setString(1, airline.getName());
                 newAirline.setDouble(2, airline.getPriceTerms());
                 newAirline.setInt(3, airline.getPaymentTerms());
-
                 newAirline.executeUpdate();
                 return true;
             } catch (SQLException e) {

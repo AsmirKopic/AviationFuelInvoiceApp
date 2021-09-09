@@ -7,7 +7,7 @@ import java.util.List;
 public interface InvoiceDAO {
 
     public boolean open();
-    public boolean close();
+    public void close();
 
     List<Invoice> listAllInvoices();
     List<Invoice> listAllInvoicesByAirline();
@@ -16,5 +16,7 @@ public interface InvoiceDAO {
     boolean newInvoice(Invoice invoice);
     boolean editInvoice(Invoice invoice);
     boolean deleteInvoice(Invoice invoice);
+
+    boolean isInDatabase(Invoice invoice);
 
 }
