@@ -10,7 +10,7 @@ import java.util.List;
 public class InvoiceDatabase implements InvoiceDAO {
 
     public static final String DB_NAME = "aviationFuelService.db";
-    // public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
+    //public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\asmir\\Desktop\\AviationFuelTEST\\" + DB_NAME;
 
     public static final String NEW_INVOICE = "INSERT INTO invoices " +
