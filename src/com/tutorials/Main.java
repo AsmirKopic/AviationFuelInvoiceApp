@@ -1,7 +1,9 @@
 package com.tutorials;
 
 import com.tutorials.database.AirlineDatabase;
+import com.tutorials.database.InvoiceDatabase;
 import com.tutorials.model.Airline;
+import com.tutorials.model.Invoice;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +14,14 @@ public class Main {
     AirlineDatabase airlineDb = new AirlineDatabase();
     if (!airlineDb.open()){
         System.out.println("Cant open datasource");
+    }
+
+
+    //checking connection
+    InvoiceDatabase invoiceDb = new InvoiceDatabase();
+
+    if (!invoiceDb.open()){
+        System.out.println("Cant open Invoice datasource!!!");
     }
 
     // This program represents aviation fueling invoice system
@@ -30,6 +40,13 @@ public class Main {
         System.out.println(airlineDb.isInDatabase(flyNas));
 
 
+
+
+
+
+
+
         airlineDb.close();
+        invoiceDb.close();
     }
 }

@@ -17,7 +17,7 @@ public class InvoiceDatabase implements InvoiceDAO {
             "(airline_name, date, flight_number, reg_number, uplift_liters, uplift_kg, price, total_price )" +
             " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String QUERY_INVOICES = "SELECT * FROM invoices";
-    public static final String QUERY_INVOICES_BY_AIRLINE = "SELECT * FROM invoices WHERE airline = ?";
+    public static final String QUERY_INVOICES_BY_AIRLINE = "SELECT * FROM invoices WHERE airline_name = ?";
     public static final String QUERY_INVOICES_BY_INVOICE_NUMBER = "SELECT * FROM invoices WHERE invoice_number = ?";
 
     private Connection conn;
@@ -39,7 +39,7 @@ public class InvoiceDatabase implements InvoiceDAO {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Couldn't open connection." + e.getMessage());
+            System.out.println("Couldn't open InvoiceDatabase connection." + e.getMessage());
             return false;
         }
     }
