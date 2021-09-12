@@ -18,5 +18,6 @@ public interface InvoiceDAO {
     boolean deleteInvoice(Invoice invoice);
 
     boolean isInDatabase(Invoice invoice);
+    boolean isInDatabase(int invNumber);
 
 }

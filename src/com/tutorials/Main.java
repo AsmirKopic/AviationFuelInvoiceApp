@@ -12,17 +12,13 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
     AirlineDatabase airlineDb = new AirlineDatabase();
-    if (!airlineDb.open()){
+    InvoiceDatabase invoiceDb = new InvoiceDatabase();
+
+    //checking connection
+    if (!airlineDb.open() || !invoiceDb.open() ){
         System.out.println("Cant open datasource");
     }
 
-
-    //checking connection
-    InvoiceDatabase invoiceDb = new InvoiceDatabase();
-
-    if (!invoiceDb.open()){
-        System.out.println("Cant open Invoice datasource!!!");
-    }
 
     // This program represents aviation fueling invoice system
 	// Will take input from delivery voucher provided in time of aircraft refueling.
@@ -38,6 +34,13 @@ public class Main {
         Airline flyNas = new Airline("Fly Nas", 215, 15);
         airlineDb.insertAirline(flyNas);
         System.out.println(airlineDb.isInDatabase(flyNas));
+
+        //checking method
+        System.out.println(invoiceDb.isInDatabase(1));
+
+
+
+
 
 
 

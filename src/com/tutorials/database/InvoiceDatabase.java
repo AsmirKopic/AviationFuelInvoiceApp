@@ -105,7 +105,7 @@ public class InvoiceDatabase implements InvoiceDAO {
     @Override
     public boolean newInvoice(Invoice invoice) {
 
-        if (!isInDatabase(invoice)){
+        if (!isInDatabase(invoice.getInvoiceNumber())){
             try {
                 AirlineDatabase airlineDb = new AirlineDatabase();
                 Airline airline = airlineDb.findAirlineByName(invoice.getAirline());
@@ -154,4 +154,18 @@ public class InvoiceDatabase implements InvoiceDAO {
         return false;
     }
 
+    @Override
+    public boolean isInDatabase(int invNumber) {
+        try {
+            queryInvoicesByInvNumber.setInt(1, invNumber);
+            ResultSet results = queryInvoicesByInvNumber.executeQuery();
+
+            if (results.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Cant execute query" + e.getMessage());
+        }
+        return false;
+    }
 }
