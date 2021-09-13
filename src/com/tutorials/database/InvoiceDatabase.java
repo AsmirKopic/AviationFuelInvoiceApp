@@ -5,6 +5,7 @@ import com.tutorials.model.Invoice;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InvoiceDatabase implements InvoiceDAO {
@@ -20,7 +21,7 @@ public class InvoiceDatabase implements InvoiceDAO {
     public static final String QUERY_INVOICES_BY_AIRLINE = "SELECT * FROM invoices WHERE airline_name = ?";
     public static final String QUERY_INVOICES_BY_INVOICE_NUMBER = "SELECT * FROM invoices WHERE invoice_number = ?";
 
-    private Connection conn;
+    private Connection conn1;
     private PreparedStatement newInvoice;
     private PreparedStatement queryInvoicesByAirline;
     private PreparedStatement queryInvoicesByInvNumber;
@@ -32,10 +33,10 @@ public class InvoiceDatabase implements InvoiceDAO {
     public boolean open() {
         try {
 
-            conn = DriverManager.getConnection(CONNECTION_STRING);
-            newInvoice = conn.prepareStatement(NEW_INVOICE);
-            queryInvoicesByAirline = conn.prepareStatement(QUERY_INVOICES_BY_AIRLINE);
-            queryInvoicesByInvNumber = conn.prepareStatement(QUERY_INVOICES_BY_INVOICE_NUMBER);
+            conn1 = DriverManager.getConnection(CONNECTION_STRING);
+            newInvoice = conn1.prepareStatement(NEW_INVOICE);
+            queryInvoicesByAirline = conn1.prepareStatement(QUERY_INVOICES_BY_AIRLINE);
+            queryInvoicesByInvNumber = conn1.prepareStatement(QUERY_INVOICES_BY_INVOICE_NUMBER);
             return true;
 
         } catch (SQLException e) {
@@ -56,8 +57,8 @@ public class InvoiceDatabase implements InvoiceDAO {
             if (queryInvoicesByInvNumber != null) {
                 queryInvoicesByInvNumber.close();
             }
-            if (conn != null) {
-                conn.close();
+            if (conn1 != null) {
+                conn1.close();
             }
         } catch (SQLException e) {
             System.out.println("Couldn't close connection" + e.getMessage());
@@ -66,7 +67,7 @@ public class InvoiceDatabase implements InvoiceDAO {
 
     @Override
     public List<Invoice> listAllInvoices() {
-        try(Statement statement = conn.createStatement();
+        try(Statement statement = conn1.createStatement();
             ResultSet results = statement.executeQuery(QUERY_INVOICES)){
 
             List<Invoice> invoices = new ArrayList<>();
@@ -88,7 +89,7 @@ public class InvoiceDatabase implements InvoiceDAO {
 
         } catch (SQLException e) {
             System.out.println("Cant execute query " + e.getMessage());
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -103,30 +104,27 @@ public class InvoiceDatabase implements InvoiceDAO {
     }
 
     @Override
-    public boolean newInvoice(Invoice invoice) {
+    public int newInvoice(Invoice invoice) throws SQLException {
 
         if (!isInDatabase(invoice.getInvoiceNumber())){
             try {
-                AirlineDatabase airlineDb = new AirlineDatabase();
-                Airline airline = airlineDb.findAirlineByName(invoice.getAirline());
-
                 newInvoice.setString(1, invoice.getAirline());
                 newInvoice.setString(2, invoice.getDate());
                 newInvoice.setString(3, invoice.getFlightNumber());
                 newInvoice.setString(4, invoice.getRegistration());
                 newInvoice.setInt(5, invoice.getUpliftLiters());
                 newInvoice.setDouble(6, invoice.getUpliftInKg());
-                newInvoice.setDouble(7, airline.getPriceTerms());
-                newInvoice.setDouble(8, (invoice.getUpliftInKg() * airline.getPriceTerms()));
+                newInvoice.setDouble(7, 340);
+                newInvoice.setDouble(8, 500);
 
-                airlineDb.close();
-                return true;
+                int update = newInvoice.executeUpdate();
+                return update;
 
             } catch (SQLException e) {
                 System.out.println("Cant execute query " + e.getMessage());
             }
         }
-        return false;
+        return 0;
     }
 
     @Override

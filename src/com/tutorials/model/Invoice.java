@@ -15,15 +15,17 @@ public class Invoice {
     public Invoice() {
     }
 
-//    public Invoice(int invoiceNumber,String airline, String date, String flightNumber, String registration, int upliftLiters) {
-//        this.airlineName = airline;
-//        this.invoiceNumber = invoiceNumber;
-//        this.date = date;
-//        this.flightNumber = flightNumber;
-//        this.registration = registration;
-//        this.upliftLiters = upliftLiters;
-//        this.upliftInKg = upliftLiters * SPECIFIC_WEIGHT;
-//    }
+    public Invoice(int invoiceNumber, String airlineName, String date, String flightNumber, String registration, int upliftLiters, double upliftInKg, double price, double totalPrice) {
+        this.invoiceNumber = invoiceNumber;
+        this.airlineName = airlineName;
+        this.date = date;
+        this.flightNumber = flightNumber;
+        this.registration = registration;
+        this.upliftLiters = upliftLiters;
+        this.upliftInKg = upliftInKg;
+        this.price = price;
+        this.totalPrice = totalPrice;
+    }
 
     public String getAirline() {
         return airlineName;

@@ -38,10 +38,15 @@ public class Main {
         //checking method
         System.out.println(invoiceDb.isInDatabase(1));
 
+        //public Invoice(int invoiceNumber, String airlineName, String date, String flightNumber, String registration, int upliftLiters, double upliftInKg, double price, double totalPrice) {
+        Invoice invoice1 = new Invoice(3, "Fly Nas", "20.09.", "123", "reg", 300, 45.50, 200, 450);
 
+        System.out.println(invoice1);
+        invoiceDb.newInvoice(invoice1);
 
-
-
+        // checking statements
+        List<Invoice> invoices = invoiceDb.listAllInvoices();
+        invoices.forEach( invoice -> System.out.println(invoice));
 
 
 

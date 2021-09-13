@@ -2,6 +2,7 @@ package com.tutorials.database;
 
 import com.tutorials.model.Invoice;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface InvoiceDAO {
@@ -13,7 +14,7 @@ public interface InvoiceDAO {
     List<Invoice> listAllInvoicesByAirline();
     Invoice findInvoiceByNum(int invoiceNumber);
 
-    boolean newInvoice(Invoice invoice);
+    int newInvoice(Invoice invoice) throws SQLException;
     boolean editInvoice(Invoice invoice);
     boolean deleteInvoice(Invoice invoice);
 
