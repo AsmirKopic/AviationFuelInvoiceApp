@@ -1,5 +1,6 @@
 package com.tutorials.database;
 
+import java.lang.reflect.Executable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -11,6 +12,7 @@ public class DBUtil {
 
     // static method that creates a connection to the database and return the connection object
     public static Connection getConnection() {
+
         Connection conn = null;
 
         try {
@@ -22,4 +24,12 @@ public class DBUtil {
         return conn;
     }
 
+    public static void closeConnection(Connection conn) {
+
+        try {
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
