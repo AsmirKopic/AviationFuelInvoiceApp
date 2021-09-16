@@ -7,15 +7,12 @@ import java.util.List;
 
 public interface InvoiceDAO {
 
-    public boolean open();
-    public void close();
-
     List<Invoice> listAllInvoices();
     List<Invoice> listAllInvoicesByAirline();
     Invoice findInvoiceByNum(int invoiceNumber);
 
     int newInvoice(Invoice invoice) throws SQLException;
-    boolean editInvoice(Invoice invoice);
+    boolean updateInvoice(Invoice invoice);
     boolean deleteInvoice(Invoice invoice);
 
     boolean isInDatabase(Invoice invoice);

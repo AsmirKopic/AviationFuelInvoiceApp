@@ -128,7 +128,7 @@ public class InvoiceDatabase implements InvoiceDAO {
     }
 
     @Override
-    public boolean editInvoice(Invoice invoice) {
+    public boolean updateInvoice(Invoice invoice) {
         return false;
     }
 
