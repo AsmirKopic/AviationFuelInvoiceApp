@@ -3,7 +3,6 @@ package com.tutorials;
 import com.tutorials.database.AirlineDatabase;
 import com.tutorials.database.InvoiceDatabase;
 import com.tutorials.model.Airline;
-import com.tutorials.model.Invoice;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +20,7 @@ public class Main {
 
 
         // print list of airlines
-        List<Airline> airlines = airlineDb.findAllAirlines();
+        List<Airline> airlines = airlineDb.listAllAirlines();
         airlines.forEach(airline -> System.out.println(airline));
 
         // insert airlines

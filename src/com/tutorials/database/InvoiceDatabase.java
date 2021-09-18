@@ -28,10 +28,13 @@ public class InvoiceDatabase implements InvoiceDAO {
 
     @Override
     public List<Invoice> listAllInvoices() {
-        try(Statement statement = conn1.createStatement();
-            ResultSet results = statement.executeQuery(QUERY_INVOICES)){
 
-            List<Invoice> invoices = new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(QUERY_INVOICES)) {
+
             while (results.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setInvoiceNumber(results.getInt(1));
@@ -46,17 +49,46 @@ public class InvoiceDatabase implements InvoiceDAO {
 
                 invoices.add(invoice);
             }
-            return invoices;
 
         } catch (SQLException e) {
             System.out.println("Cant execute query " + e.getMessage());
             return Collections.emptyList();
         }
+        return invoices;
     }
 
     @Override
-    public List<Invoice> listAllInvoicesByAirline() {
-        return null;
+    public List<Invoice> listInvoicesByAirline(String airlineName) {
+
+        List<Invoice> invoices = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement queryInvoicesByAirline = conn.prepareStatement(QUERY_INVOICES_BY_AIRLINE) ) {
+
+            queryInvoicesByAirline.setString(1, airlineName );
+            ResultSet results = queryInvoicesByAirline.executeQuery();
+
+            while (results.next()) {
+                Invoice invoice = new Invoice();
+                invoice.setInvoiceNumber(results.getInt(1));
+                invoice.setAirline(results.getString(2));
+                invoice.setDate(results.getString(3));
+                invoice.setFlightNumber(results.getString(4));
+                invoice.setRegistration(results.getString(5));
+                invoice.setUpliftLiters(results.getInt(6));
+                invoice.setUpliftInKg(results.getDouble(7));
+                invoice.setPrice(results.getDouble(8));
+                invoice.setTotalPrice(results.getDouble(9));
+
+                invoices.add(invoice);
+            }
+            results.close();
+
+        } catch (SQLException e) {
+            System.out.println("Cant execute query - List invoices by airline " + e.getMessage());
+            return Collections.emptyList();
+        }
+        return invoices;
     }
 
     @Override

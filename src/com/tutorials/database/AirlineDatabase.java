@@ -16,7 +16,7 @@ public class AirlineDatabase implements AirlineDAO{
     public static final String DELETE_AIRLINE = "DELETE FROM airlines WHERE airline_name = ?";
 
     @Override
-    public List<Airline> findAllAirlines() {
+    public List<Airline> listAllAirlines() {
 
         List<Airline> airlines = new ArrayList<>();
 
@@ -55,9 +55,12 @@ public class AirlineDatabase implements AirlineDAO{
                     airline.setPriceTerms(results.getDouble(3));
                     airline.setPaymentTerms(results.getInt(4));
                 }
+                results.close();
+
         } catch (SQLException e) {
             System.out.println("Cant find airline" + e.getMessage());
         }
+
         return airline;
     }
 

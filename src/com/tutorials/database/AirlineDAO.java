@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AirlineDAO {
 
-    List<Airline> findAllAirlines();
+    List<Airline> listAllAirlines();
 
     Airline findAirlineByName(String name);
 

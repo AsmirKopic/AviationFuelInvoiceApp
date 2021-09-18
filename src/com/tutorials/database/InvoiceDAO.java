@@ -8,7 +8,7 @@ import java.util.List;
 public interface InvoiceDAO {
 
     List<Invoice> listAllInvoices();
-    List<Invoice> listAllInvoicesByAirline();
+    List<Invoice> listInvoicesByAirline(String airlineName);
     Invoice findInvoiceByNum(int invoiceNumber);
 
     int newInvoice(Invoice invoice) throws SQLException;
