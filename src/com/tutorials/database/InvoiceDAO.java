@@ -3,7 +3,6 @@ package com.tutorials.database;
 import com.tutorials.model.Airline;
 import com.tutorials.model.Invoice;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface InvoiceDAO {
@@ -12,9 +11,9 @@ public interface InvoiceDAO {
     List<Invoice> listInvoicesByAirline(String airlineName);
     Invoice findInvoiceByNum(int invoiceNumber);
 
-    int newInvoice(Airline airline, Invoice invoice);
-    boolean updateInvoice(Invoice invoice);
-    boolean deleteInvoice(Invoice invoice);
+    int insertInvoice(Airline airline, Invoice invoice);
+    int updateInvoice(Invoice invoice);
+    int deleteInvoice(Invoice invoice);
 
     boolean isInDatabase(Invoice invoice);
     boolean isInDatabase(int invNumber);

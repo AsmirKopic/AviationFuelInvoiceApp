@@ -10,21 +10,16 @@ import java.util.List;
 
 public class InvoiceDatabase implements InvoiceDAO {
 
-
     public static final String NEW_INVOICE = "INSERT INTO invoices " +
             "(airline_name, date, flight_number, reg_number, uplift_liters, uplift_kg, price, total_price )" +
             " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String QUERY_INVOICES = "SELECT * FROM invoices";
     public static final String QUERY_INVOICES_BY_AIRLINE = "SELECT * FROM invoices WHERE airline_name = ?";
     public static final String QUERY_INVOICES_BY_INVOICE_NUMBER = "SELECT * FROM invoices WHERE invoice_number = ?";
-
-
-    private PreparedStatement newInvoice;
-    private PreparedStatement queryInvoicesByAirline;
-    private PreparedStatement queryInvoicesByInvNumber;
-    private PreparedStatement queryInvoicesByDatePeriod;            // needs to be implemented
-    private PreparedStatement queryInvoicesByDatePeriodAndAirline;  // needs to be implemented
-
+    public static final String UPDATE_INVOICE = "UPDATE invoices SET airline_name = ?, date = ?," +
+            "flight_number = ?, reg_number = ?, uplift_liters = ?, uplift_kg = ?, price = ?, total_price = ?" +
+            "  WHERE airline_name = ?";
+    public static final String DELETE_INVOICE = "DELETE FROM invoices WHERE invoice_number = ?";
 
     @Override
     public List<Invoice> listAllInvoices() {
@@ -38,7 +33,7 @@ public class InvoiceDatabase implements InvoiceDAO {
             while (results.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setInvoiceNumber(results.getInt(1));
-                invoice.setAirline(results.getString(2));
+                invoice.setAirlineName(results.getString(2));
                 invoice.setDate(results.getString(3));
                 invoice.setFlightNumber(results.getString(4));
                 invoice.setRegistration(results.getString(5));
@@ -63,15 +58,15 @@ public class InvoiceDatabase implements InvoiceDAO {
         List<Invoice> invoices = new ArrayList<>();
 
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement queryInvoicesByAirline = conn.prepareStatement(QUERY_INVOICES_BY_AIRLINE) ) {
+             PreparedStatement queryInvoicesByAirline = conn.prepareStatement(QUERY_INVOICES_BY_AIRLINE)) {
 
-            queryInvoicesByAirline.setString(1, airlineName );
+            queryInvoicesByAirline.setString(1, airlineName);
             ResultSet results = queryInvoicesByAirline.executeQuery();
 
             while (results.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setInvoiceNumber(results.getInt(1));
-                invoice.setAirline(results.getString(2));
+                invoice.setAirlineName(results.getString(2));
                 invoice.setDate(results.getString(3));
                 invoice.setFlightNumber(results.getString(4));
                 invoice.setRegistration(results.getString(5));
@@ -105,7 +100,7 @@ public class InvoiceDatabase implements InvoiceDAO {
             while (results.next()) {
                 invoice = new Invoice();
                 invoice.setInvoiceNumber(results.getInt(1));
-                invoice.setAirline(results.getString(2));
+                invoice.setAirlineName(results.getString(2));
                 invoice.setDate(results.getString(3));
                 invoice.setFlightNumber(results.getString(4));
                 invoice.setRegistration(results.getString(5));
@@ -123,28 +118,24 @@ public class InvoiceDatabase implements InvoiceDAO {
     }
 
     @Override
-    public int newInvoice(Airline airline, Invoice invoice) {
+    public int insertInvoice(Airline airline, Invoice invoice) {
 
         int status = 0;
 
         if (!isInDatabase(invoice)) {
-
-            double upliftInKG = invoice.getUpliftLiters() * 0.8;
-            double totalPrice = (upliftInKG * airline.getPriceTerms()) / 1000;
-
             try (Connection conn = DBUtil.getConnection();
                  PreparedStatement newInvoice = conn.prepareStatement(NEW_INVOICE)) {
 
-                    newInvoice.setString(1, airline.getName());
-                    newInvoice.setString(2, invoice.getDate());
-                    newInvoice.setString(3, invoice.getFlightNumber());
-                    newInvoice.setString(4, invoice.getRegistration());
-                    newInvoice.setInt(5, invoice.getUpliftLiters());
-                    newInvoice.setDouble(6, upliftInKG);
-                    newInvoice.setDouble(7, airline.getPriceTerms());
-                    newInvoice.setDouble(8, totalPrice);
+                newInvoice.setString(1, invoice.getAirlineName());
+                newInvoice.setString(2, invoice.getDate());
+                newInvoice.setString(3, invoice.getFlightNumber());
+                newInvoice.setString(4, invoice.getRegistration());
+                newInvoice.setInt(5, invoice.getUpliftLiters());
+                newInvoice.setDouble(6, invoice.getUpliftInKg());
+                newInvoice.setDouble(7, invoice.getPrice());
+                newInvoice.setDouble(8, invoice.getTotalPrice());
 
-                    status = newInvoice.executeUpdate();
+                status = newInvoice.executeUpdate();
 
             } catch (Exception e) {
                 System.out.println("Cant insert new Invoice. " + e.getMessage());
@@ -154,42 +145,85 @@ public class InvoiceDatabase implements InvoiceDAO {
     }
 
     @Override
-    public boolean updateInvoice(Invoice invoice) {
-        return false;
+    public int updateInvoice(Invoice invoice) {
+        int status = 0;
+
+        if (isInDatabase(invoice)) {
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement updateInvoice = conn.prepareStatement(UPDATE_INVOICE)) {
+
+                updateInvoice.setString(1, invoice.getAirlineName());
+                updateInvoice.setString(2, invoice.getDate());
+                updateInvoice.setString(3, invoice.getFlightNumber());
+                updateInvoice.setString(4, invoice.getRegistration());
+                updateInvoice.setInt(5, invoice.getUpliftLiters());
+                updateInvoice.setDouble(6, invoice.getUpliftInKg());
+                updateInvoice.setDouble(7, invoice.getPrice());
+                updateInvoice.setDouble(8, invoice.getTotalPrice());
+
+                status = updateInvoice.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(" Cant execute query - Update Airline " + e.getMessage());
+            }
+        }
+        return status;
     }
 
     @Override
-    public boolean deleteInvoice(Invoice invoice) {
-        return false;
+    public int deleteInvoice(Invoice invoice) {
+
+        int status = 0;
+
+        if (isInDatabase(invoice)) {
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement deleteInvoice = conn.prepareStatement(DELETE_INVOICE)) {
+
+                deleteInvoice.setInt(1, invoice.getInvoiceNumber());
+
+                status = deleteInvoice.executeUpdate();
+
+            } catch (Exception e) {
+                System.out.println("Cant execute query - Delete Invoice " + e.getMessage());
+            }
+        }
+        return status;
     }
 
     @Override
     public boolean isInDatabase(Invoice invoice) {
-        try {
-            queryInvoicesByInvNumber.setInt(1, invoice.getInvoiceNumber());
-            ResultSet results = queryInvoicesByInvNumber.executeQuery();
 
-            if (results.next()){
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement prstm = conn.prepareStatement(QUERY_INVOICES_BY_INVOICE_NUMBER)) {
+
+            prstm.setInt(1, invoice.getInvoiceNumber());
+            ResultSet results = prstm.executeQuery();
+
+            if (results.next()) {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Cant execute query" + e.getMessage());
+            System.out.println("Cant execute query - Is Inv Number in database " + e.getMessage());
         }
         return false;
     }
 
-    @Override
-    public boolean isInDatabase(int invNumber) {
-        try {
-            queryInvoicesByInvNumber.setInt(1, invNumber);
-            ResultSet results = queryInvoicesByInvNumber.executeQuery();
+    public boolean isInDatabase(int invoiceNumber) {
 
-            if (results.next()){
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement prstm = conn.prepareStatement(QUERY_INVOICES_BY_INVOICE_NUMBER)) {
+
+            prstm.setInt(1, invoiceNumber);
+            ResultSet results = prstm.executeQuery();
+
+            if (results.next()) {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Cant execute query" + e.getMessage());
+            System.out.println("Cant execute query - Is Invoice Number in database, checked by number " + e.getMessage());
         }
         return false;
     }
+
+
 }
