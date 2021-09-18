@@ -93,31 +93,64 @@ public class InvoiceDatabase implements InvoiceDAO {
 
     @Override
     public Invoice findInvoiceByNum(int invoiceNumber) {
-        return null;
+
+        Invoice invoice = null;
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement queryInvoiceByInvNumber = conn.prepareStatement(QUERY_INVOICES_BY_INVOICE_NUMBER)) {
+
+            queryInvoiceByInvNumber.setInt(1, invoiceNumber);
+            ResultSet results = queryInvoiceByInvNumber.executeQuery();
+
+            while (results.next()) {
+                invoice = new Invoice();
+                invoice.setInvoiceNumber(results.getInt(1));
+                invoice.setAirline(results.getString(2));
+                invoice.setDate(results.getString(3));
+                invoice.setFlightNumber(results.getString(4));
+                invoice.setRegistration(results.getString(5));
+                invoice.setUpliftLiters(results.getInt(6));
+                invoice.setUpliftInKg(results.getDouble(7));
+                invoice.setPrice(results.getDouble(8));
+                invoice.setTotalPrice(results.getDouble(9));
+            }
+            results.close();
+
+        } catch (SQLException e) {
+            System.out.println("Cant find invoice" + e.getMessage());
+        }
+        return invoice;
     }
 
     @Override
-    public int newInvoice(Invoice invoice) throws SQLException {
+    public int newInvoice(Airline airline, Invoice invoice) {
 
-        if (!isInDatabase(invoice.getInvoiceNumber())){
-            try {
-                newInvoice.setString(1, invoice.getAirline());
-                newInvoice.setString(2, invoice.getDate());
-                newInvoice.setString(3, invoice.getFlightNumber());
-                newInvoice.setString(4, invoice.getRegistration());
-                newInvoice.setInt(5, invoice.getUpliftLiters());
-                newInvoice.setDouble(6, invoice.getUpliftInKg());
-                newInvoice.setDouble(7, 340);
-                newInvoice.setDouble(8, 500);
+        int status = 0;
 
-                int update = newInvoice.executeUpdate();
-                return update;
+        if (!isInDatabase(invoice)) {
 
-            } catch (SQLException e) {
-                System.out.println("Cant execute query " + e.getMessage());
+            double upliftInKG = invoice.getUpliftLiters() * 0.8;
+            double totalPrice = (upliftInKG * airline.getPriceTerms()) / 1000;
+
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement newInvoice = conn.prepareStatement(NEW_INVOICE)) {
+
+                    newInvoice.setString(1, airline.getName());
+                    newInvoice.setString(2, invoice.getDate());
+                    newInvoice.setString(3, invoice.getFlightNumber());
+                    newInvoice.setString(4, invoice.getRegistration());
+                    newInvoice.setInt(5, invoice.getUpliftLiters());
+                    newInvoice.setDouble(6, upliftInKG);
+                    newInvoice.setDouble(7, airline.getPriceTerms());
+                    newInvoice.setDouble(8, totalPrice);
+
+                    status = newInvoice.executeUpdate();
+
+            } catch (Exception e) {
+                System.out.println("Cant insert new Invoice. " + e.getMessage());
             }
         }
-        return 0;
+        return status;
     }
 
     @Override
