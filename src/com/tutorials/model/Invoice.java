@@ -2,9 +2,8 @@ package com.tutorials.model;
 
 public class Invoice {
 
-
     private int invoiceNumber;
-    private Airline airline;
+    private String airlineName;
     private String date;
     private String flightNumber;
     private String registration;
@@ -17,10 +16,6 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Airline airline){
-        this.airline = airline;
-    }
-
     public int getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -30,11 +25,11 @@ public class Invoice {
     }
 
     public String getAirlineName() {
-        return airline.getName();
+        return airlineName;
     }
 
-    public void setAirlineName(String airline) {
-        this.airline.setName(airline);
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
     }
 
     public String getDate() {
@@ -78,7 +73,7 @@ public class Invoice {
     }
 
     public double getPrice() {
-        return this.airline.getPriceTerms();
+        return price;
     }
 
     public void setPrice(double price) {
@@ -91,5 +86,20 @@ public class Invoice {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceNumber=" + invoiceNumber +
+                ", airlineName='" + airlineName + '\'' +
+                ", date='" + date + '\'' +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", registration='" + registration + '\'' +
+                ", upliftLiters=" + upliftLiters +
+                ", upliftInKg=" + getUpliftInKg() +
+                ", price=" + price +
+                ", totalPrice=" + getTotalPrice() +
+                '}';
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class InvoiceDatabase implements InvoiceDAO {
+public class InvoiceDaoImpl implements InvoiceDAO {
 
     public static final String NEW_INVOICE = "INSERT INTO invoices " +
             "(airline_name, date, flight_number, reg_number, uplift_liters, uplift_kg, price, total_price )" +

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirlineDatabase implements AirlineDAO{
+public class AirlineDaoImpl implements AirlineDAO{
 
     public static final String INSERT_AIRLINE = "INSERT INTO airlines (airline_name, priceTerms, paymentTerms) " +
                                                 "VALUES ( ?, ?, ?)";
