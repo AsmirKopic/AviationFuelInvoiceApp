@@ -1,6 +1,5 @@
 package com.tutorials.database;
 
-import java.lang.reflect.Executable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

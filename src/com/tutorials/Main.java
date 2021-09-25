@@ -45,28 +45,28 @@ public class Main {
 ////        List<Invoice> invoices = invoiceDb.listAllInvoices();
 ////        invoices.forEach( invoice -> System.out.println(invoice));
 
-        System.out.println("Insert name of airline customer");
-        Scanner input = new Scanner(System.in);
-
-        String airlineName = input.nextLine();
-
-
-        Airline airline = airlineDb.findAirlineByName(airlineName);
-        Invoice invoice = new Invoice();
-        if (airline != null) {
-
-            invoice.setAirlineName(airline.getName());
-            invoice.setPrice(airline.getPriceTerms());
-            invoice.setUpliftLiters(1234);
-            invoice.setRegistration("REG123");
-            invoice.setFlightNumber("56789");
-            invoice.setDate("19/9/2021");
-        }
-
-
-        System.out.println(invoice.toString());
-
-        invoiceDb.insertInvoice(airline, invoice);
+//        System.out.println("Insert name of airline customer");
+//        Scanner input = new Scanner(System.in);
+//
+//        String airlineName = input.nextLine();
+//
+//
+//        Airline airline = airlineDb.findAirlineByName(airlineName);
+//        Invoice invoice = new Invoice();
+//        if (airline != null) {
+//
+//            invoice.setAirlineName(airline.getName());
+//            invoice.setPrice(airline.getPriceTerms());
+//            invoice.setUpliftLiters(1234);
+//            invoice.setRegistration("REG123");
+//            invoice.setFlightNumber("56789");
+//            invoice.setDate("19/9/2021");
+//        }
+//
+//
+//        System.out.println(invoice.toString());
+//
+//        invoiceDb.insertInvoice(airline, invoice);
 
         AirlineManagement.runAirlineManagement();
 
