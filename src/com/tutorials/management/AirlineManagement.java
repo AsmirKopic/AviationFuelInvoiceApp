@@ -75,7 +75,6 @@ public class AirlineManagement {
 
             } catch (Exception e) {
                 System.out.println("Management menu exception" + e.getMessage());
-                //input.nextLine();
             }
 
         }
@@ -154,6 +153,8 @@ public class AirlineManagement {
                 try {
                     airlineImpl.insertAirline(airline);
                     System.out.println(airlineName + " added to database!");
+                    System.out.println("===========================================");
+
                 } catch (Exception e) {
                     System.out.println("Cant execute database query " + e.getMessage());
                 }
