@@ -6,6 +6,7 @@ import com.tutorials.model.Airline;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Executable;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -97,7 +98,7 @@ public class AirlineManagement {
     public static void findAirlineByName() {
 
         Scanner input = new Scanner(System.in);
-        Airline airline;
+        Airline airline = new Airline();
 
         System.out.println("===========================================");
 
@@ -121,7 +122,46 @@ public class AirlineManagement {
 
     }
 
-    public static void insertNewAirline() {
+    public static void insertNewAirline() throws IllegalArgumentException {
+
+        System.out.println("===========================================");
+        System.out.println(" Insert new Airline. ");
+        Scanner input = new Scanner(System.in);
+        Airline airline = new Airline();
+        String airlineName;
+        double priceTerms;
+        int paymentTerms;
+
+        try {
+
+            System.out.println("Please enter airline name:");
+            airlineName = input.nextLine();
+            airline.setName(airlineName);
+
+            if (airlineImpl.isInDatabase(airline)) {
+                throw new IllegalArgumentException("Airline is already in database!");
+            } else {
+
+                System.out.println("Please enter airline price terms: ");
+                priceTerms = input.nextInt();
+
+                System.out.println("Please enter airline payment terms: ");
+                paymentTerms = input.nextInt();
+
+                airline.setPriceTerms(priceTerms);
+                airline.setPaymentTerms(paymentTerms);
+
+                try {
+                    airlineImpl.insertAirline(airline);
+                    System.out.println(airlineName + " added to database!");
+                } catch (Exception e) {
+                    System.out.println("Cant execute database query " + e.getMessage());
+                }
+            }
+
+        } catch (Exception e1) {
+            System.out.println("Cant insert new airline. " + e1.getMessage());
+        }
     }
 
     public static void updateAirline() {
