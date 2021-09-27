@@ -76,8 +76,6 @@ public class AirlineManagement {
         Scanner input = new Scanner(System.in);
         Airline airline;
 
-        System.out.println("===========================================");
-
         try {
             System.out.println("Please enter airline name:");
             String name = input.nextLine();
@@ -93,15 +91,10 @@ public class AirlineManagement {
         } catch (Exception e) {
             System.out.println("Error - Find airline." + e.getMessage());
         }
-
-        System.out.println("===========================================");
-
     }
 
     public static void insertNewAirline() throws IllegalArgumentException {
 
-        System.out.println("===========================================");
-        System.out.println(" Insert new Airline. ");
         Scanner input = new Scanner(System.in);
         Airline airline = new Airline();
 
@@ -134,7 +127,6 @@ public class AirlineManagement {
 
                     if (status == 1) {
                         System.out.println(airlineName + " added to database!");
-                        System.out.println("===========================================");
                     }
 
                 } catch (Exception e) {
@@ -148,10 +140,10 @@ public class AirlineManagement {
     }
 
     public static void updateAirline() {
+
         Scanner input = new Scanner(System.in);
         Airline airline = new Airline();
 
-        System.out.println("===========================================");
         System.out.println("Please enter name of airline: ");
         String airlineName = input.nextLine();
 
@@ -175,7 +167,6 @@ public class AirlineManagement {
 
                 if (status == 1) {
                     System.out.println(airlineName + " edited in database!");
-                    System.out.println("===========================================");
                 }
 
             } catch (Exception e) {
@@ -190,9 +181,7 @@ public class AirlineManagement {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("===========================================");
         System.out.println("Please enter airline name: ");
-
         String airlineName = input.nextLine();
 
         if (airlineImpl.isInDatabase(airlineName)) {
@@ -202,8 +191,8 @@ public class AirlineManagement {
 
                 if (status == 1) {
                     System.out.println(airlineName + " deleted from database.");
-                    System.out.println("===========================================");
                 }
+
             } catch (Exception e) {
                 System.out.println("Cant execute database query " + e.getMessage());
             }
