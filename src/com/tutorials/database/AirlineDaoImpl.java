@@ -95,9 +95,9 @@ public class AirlineDaoImpl implements AirlineDAO{
             try (Connection conn = DBUtil.getConnection();
                  PreparedStatement updateAirline = conn.prepareStatement(UPDATE_AIRLINE)) {
 
-                    updateAirline.setString(1, airline.getName());
-                    updateAirline.setDouble(2, airline.getPriceTerms());
-                    updateAirline.setInt(3, airline.getPaymentTerms());
+                    updateAirline.setDouble(1, airline.getPriceTerms());
+                    updateAirline.setInt(2, airline.getPaymentTerms());
+                    updateAirline.setString(3, airline.getName());
 
                     status = updateAirline.executeUpdate();
 
@@ -109,15 +109,15 @@ public class AirlineDaoImpl implements AirlineDAO{
     }
 
     @Override
-    public int deleteAirline(Airline airline) {
+    public int deleteAirline(String airlineName) {
 
         int status = 0;
 
-        if (isInDatabase(airline)) {
+        if (isInDatabase(airlineName)) {
             try (Connection conn = DBUtil.getConnection();
                  PreparedStatement deleteAirline = conn.prepareStatement(DELETE_AIRLINE)) {
 
-                    deleteAirline.setString(1, airline.getName());
+                    deleteAirline.setString(1, airlineName);
 
                     status = deleteAirline.executeUpdate();
 
@@ -146,4 +146,21 @@ public class AirlineDaoImpl implements AirlineDAO{
         return false;
     }
 
+    @Override
+    public boolean isInDatabase(String airlineName) {
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement queryAirline = conn.prepareStatement(FIND_AIRLINE_BY_NAME)) {
+
+            queryAirline.setString(1, airlineName);
+            ResultSet results = queryAirline.executeQuery();
+
+            if (results.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Cant execute query - is Airline in database " + e.getMessage());
+        }
+        return false;
+    }
 }

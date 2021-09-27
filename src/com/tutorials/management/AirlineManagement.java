@@ -104,6 +104,7 @@ public class AirlineManagement {
         System.out.println(" Insert new Airline. ");
         Scanner input = new Scanner(System.in);
         Airline airline = new Airline();
+
         String airlineName;
         double priceTerms;
         int paymentTerms;
@@ -112,10 +113,10 @@ public class AirlineManagement {
 
             System.out.println("Please enter airline name:");
             airlineName = input.nextLine();
-            airline.setName(airlineName);
 
-            if (airlineImpl.isInDatabase(airline)) {
+            if (airlineImpl.isInDatabase(airlineName)) {
                 throw new IllegalArgumentException("Airline is already in database!");
+
             } else {
 
                 System.out.println("Please enter airline price terms: ");
@@ -124,13 +125,17 @@ public class AirlineManagement {
                 System.out.println("Please enter airline payment terms: ");
                 paymentTerms = input.nextInt();
 
+                airline.setName(airlineName);
                 airline.setPriceTerms(priceTerms);
                 airline.setPaymentTerms(paymentTerms);
 
                 try {
-                    airlineImpl.insertAirline(airline);
-                    System.out.println(airlineName + " added to database!");
-                    System.out.println("===========================================");
+                    int status = airlineImpl.insertAirline(airline);
+
+                    if (status == 1) {
+                        System.out.println(airlineName + " added to database!");
+                        System.out.println("===========================================");
+                    }
 
                 } catch (Exception e) {
                     System.out.println("Cant execute database query " + e.getMessage());
@@ -143,9 +148,65 @@ public class AirlineManagement {
     }
 
     public static void updateAirline() {
+        Scanner input = new Scanner(System.in);
+        Airline airline = new Airline();
+
+        System.out.println("===========================================");
+        System.out.println("Please enter name of airline: ");
+        String airlineName = input.nextLine();
+
+        if (airlineImpl.isInDatabase(airlineName)) {
+
+            double priceTerms;
+            int paymentTerms;
+
+            System.out.println("Please enter new airline price terms: ");
+            priceTerms = input.nextDouble();
+
+            System.out.println("Please enter new airline payment terms: ");
+            paymentTerms = input.nextInt();
+
+            airline.setName(airlineName);
+            airline.setPriceTerms(priceTerms);
+            airline.setPaymentTerms(paymentTerms);
+
+            try {
+                int status = airlineImpl.updateAirline(airline);
+
+                if (status == 1) {
+                    System.out.println(airlineName + " edited in database!");
+                    System.out.println("===========================================");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Cant execute database query " + e.getMessage());
+            }
+        } else {
+            throw new IllegalArgumentException("Airline is not in database!");
+        }
     }
 
     public static void deleteAirline() {
-    }
 
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("===========================================");
+        System.out.println("Please enter airline name: ");
+
+        String airlineName = input.nextLine();
+
+        if (airlineImpl.isInDatabase(airlineName)) {
+
+            try {
+                int status = airlineImpl.deleteAirline(airlineName);
+
+                if (status == 1) {
+                    System.out.println(airlineName + " deleted from database.");
+                    System.out.println("===========================================");
+                }
+            } catch (Exception e) {
+                System.out.println("Cant execute database query " + e.getMessage());
+            }
+        }
+    }
 }

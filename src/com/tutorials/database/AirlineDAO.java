@@ -14,9 +14,10 @@ public interface AirlineDAO {
 
     int updateAirline(Airline airline);
 
-    int deleteAirline(Airline airline);
+    int deleteAirline(String airlineName);
 
     boolean isInDatabase(Airline airline);
+    boolean isInDatabase(String airlineName);
 
 }
 
