@@ -3,6 +3,7 @@ package com.tutorials;
 import com.tutorials.database.AirlineDaoImpl;
 import com.tutorials.database.InvoiceDaoImpl;
 import com.tutorials.management.AirlineManagement;
+import com.tutorials.management.InvoiceManagement;
 import com.tutorials.model.Airline;
 import com.tutorials.model.Invoice;
 
@@ -68,7 +69,8 @@ public class Main {
 //
 //        invoiceDb.insertInvoice(airline, invoice);
 
-        AirlineManagement.runAirlineManagement();
+        // AirlineManagement.runAirlineManagement();
+        InvoiceManagement.runInvoiceManagement();
 
 
     }
