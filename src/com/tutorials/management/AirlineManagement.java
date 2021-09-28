@@ -59,7 +59,7 @@ public class AirlineManagement {
 
         }
     }
-
+    // need to fix printing
     public static void listAllAirlines() {
 
         System.out.println("===========================================");

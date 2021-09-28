@@ -2,7 +2,9 @@ package com.tutorials.management;
 
 import com.tutorials.database.AirlineDaoImpl;
 import com.tutorials.database.InvoiceDaoImpl;
+import com.tutorials.model.Invoice;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class InvoiceManagement {
@@ -68,14 +70,45 @@ public class InvoiceManagement {
 
     private static void listAllInvoices(){
 
+        System.out.println("LIST OF ALL INVOICES ");
+        List<Invoice> listOfInvoices = invoiceImpl.listAllInvoices();
+        listOfInvoices.forEach( invoice -> System.out.println(invoice));
+
     }
 
     private static void listInvoicesByAirline() {
 
+        Scanner input = new Scanner(System.in);
+        String airlineName;
+
+        System.out.println("LIST OF ALL INVOICES FOR AIRLINE ");
+        System.out.println("Please enter name of airline: ");
+
+        airlineName = input.nextLine();
+
+        if (airlineImpl.isInDatabase(airlineName)) {
+
+            List<Invoice> invoices = invoiceImpl.listInvoicesByAirline(airlineName);
+            invoices.forEach( invoice -> System.out.println(invoice));
+
+        } else {
+            System.out.println("Cant find invoices for entered name: " + airlineName);
+        }
     }
 
     private static void findInvoice() {
 
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Please enter invoice number: ");
+        int invoiceNumber = input.nextInt();
+
+        if (invoiceImpl.isInDatabase(invoiceNumber)) {
+            Invoice invoice = invoiceImpl.findInvoiceByNum(invoiceNumber);
+            System.out.println(invoice);
+        } else {
+            System.out.println("Cant find entered invoice.");
+        }
     }
 
     private static void insertNewInvoice() {
