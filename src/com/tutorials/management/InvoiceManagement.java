@@ -121,6 +121,19 @@ public class InvoiceManagement {
 
     private static void deleteInvoice() {
 
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Please enter invoice number: ");
+        int invoiceNumber = input.nextInt();
+
+        if (invoiceImpl.isInDatabase(invoiceNumber)) {
+            Invoice invoice = invoiceImpl.findInvoiceByNum(invoiceNumber);
+            invoiceImpl.deleteInvoice(invoice);
+            System.out.println("Invoice number: " + invoiceNumber + " deleted.");
+        } else {
+            System.out.println("Cant find entered invoice.");
+        }
+
     }
 
     private static void printSumInvoicesByAirline() {
