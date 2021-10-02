@@ -124,17 +124,6 @@ public class InvoiceManagement {
 
             Airline airline = airlineImpl.findAirlineByName(airlineName);
 
-            // ===== test ======
-            System.out.println("Please enter uplift liters: ");
-            while (!input.hasNextInt()) {
-                System.out.println("Please enter uplift quantity in litters.");
-                input.nextLine();
-            }
-            int upliftLiters = input.nextInt();
-
-            // ===== end test =====
-
-
             System.out.println("Please enter date: ");
             String date = input.nextLine();
 
@@ -145,8 +134,18 @@ public class InvoiceManagement {
             String registrationNumber = input.nextLine();
 
             System.out.println("Please enter uplift liters: ");
+            int upliftLiters;
+            do {
+                System.out.println("Please enter positive number!");
 
+                while (!input.hasNextInt()) {
+                    System.out.println("That's not a number!");
+                    input.next();
+                }
+                upliftLiters = input.nextInt();
+                input.nextLine();
 
+            } while (upliftLiters <= 0);
 
             invoice.setInvoiceNumber(invoiceImpl.lastInvoiceNumber() + 1);
             invoice.setAirlineName(airlineName);
