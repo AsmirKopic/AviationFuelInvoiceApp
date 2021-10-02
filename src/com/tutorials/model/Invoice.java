@@ -81,7 +81,7 @@ public class Invoice {
     }
 
     public double getTotalPrice() {
-        return (getPrice() * getUpliftInKg()) / 1000;
+        return (getPrice() * getUpliftInKg()) / 1000.0;
     }
 
     public void setTotalPrice(double totalPrice) {
