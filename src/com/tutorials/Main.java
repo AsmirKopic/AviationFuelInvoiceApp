@@ -25,6 +25,7 @@ public class Main {
  */
 
         // AirlineManagement.runAirlineManagement();
+        System.out.println(invoiceDb.lastInvoiceNumber());
         InvoiceManagement.runInvoiceManagement();
 
 

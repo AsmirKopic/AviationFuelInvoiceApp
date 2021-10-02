@@ -2,6 +2,7 @@ package com.tutorials.management;
 
 import com.tutorials.database.AirlineDaoImpl;
 import com.tutorials.database.InvoiceDaoImpl;
+import com.tutorials.model.Airline;
 import com.tutorials.model.Invoice;
 
 import java.util.List;
@@ -112,7 +113,61 @@ public class InvoiceManagement {
     }
 
     private static void insertNewInvoice() {
+        Scanner input = new Scanner(System.in);
+        Invoice invoice = new Invoice();
 
+        System.out.println("Insert new invoice. ");
+        System.out.println("Please enter airline: ");
+        String airlineName = input.nextLine();
+
+        if (airlineImpl.isInDatabase(airlineName)) {
+
+            Airline airline = airlineImpl.findAirlineByName(airlineName);
+
+            // ===== test ======
+            System.out.println("Please enter uplift liters: ");
+            while (!input.hasNextInt()) {
+                System.out.println("Please enter uplift quantity in litters.");
+                input.nextLine();
+            }
+            int upliftLiters = input.nextInt();
+
+            // ===== end test =====
+
+
+            System.out.println("Please enter date: ");
+            String date = input.nextLine();
+
+            System.out.println("Please enter flight number: ");
+            String flightNumber = input.nextLine();
+
+            System.out.println("Please enter registration number: ");
+            String registrationNumber = input.nextLine();
+
+            System.out.println("Please enter uplift liters: ");
+
+
+
+            invoice.setInvoiceNumber(invoiceImpl.lastInvoiceNumber() + 1);
+            invoice.setAirlineName(airlineName);
+            invoice.setDate(date);
+            invoice.setRegistration(registrationNumber);
+            invoice.setFlightNumber(flightNumber);
+            invoice.setUpliftLiters(upliftLiters);
+            invoice.setPrice(airline.getPriceTerms());
+
+            try {
+                int status = invoiceImpl.insertInvoice(invoice);
+                if (status == 1) {
+                    System.out.println("Invoice number " + invoice.getInvoiceNumber() + " added into database.");
+                }
+            } catch (Exception e) {
+                System.out.println("Cant add new invoice " + e.getMessage());
+            }
+
+        } else {
+            System.out.println("No entered airline into database.");
+        }
     }
 
     private static void updateInvoice() {

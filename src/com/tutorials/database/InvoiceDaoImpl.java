@@ -20,6 +20,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
             "flight_number = ?, reg_number = ?, uplift_liters = ?, uplift_kg = ?, price = ?, total_price = ?" +
             "  WHERE airline_name = ?";
     public static final String DELETE_INVOICE = "DELETE FROM invoices WHERE invoice_number = ?";
+    public static final String GET_LAST_INVOICE_NUMBER = "SELECT * FROM invoices ORDER BY invoice_number DESC LIMIT 1";
 
     @Override
     public List<Invoice> listAllInvoices() {
@@ -118,7 +119,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
     }
 
     @Override
-    public int insertInvoice(Airline airline, Invoice invoice) {
+    public int insertInvoice(Invoice invoice) {
 
         int status = 0;
 
@@ -203,7 +204,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Cant execute query - Is Inv Number in database " + e.getMessage());
+            System.out.println("Cant execute query - Is Invoice Number in database " + e.getMessage());
         }
         return false;
     }
@@ -223,6 +224,20 @@ public class InvoiceDaoImpl implements InvoiceDAO {
             System.out.println("Cant execute query - Is Invoice Number in database, checked by number " + e.getMessage());
         }
         return false;
+    }
+
+    public int lastInvoiceNumber() {
+
+        try (Connection conn = DBUtil.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(GET_LAST_INVOICE_NUMBER)) {
+
+            return results.getInt(1);
+
+        } catch (SQLException e) {
+            System.out.println("Cant execute query - Get last invoice number. " + e.getMessage());
+            return 0;
+        }
     }
 
 

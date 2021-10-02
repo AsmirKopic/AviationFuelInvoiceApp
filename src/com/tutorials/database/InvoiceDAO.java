@@ -11,11 +11,12 @@ public interface InvoiceDAO {
     List<Invoice> listInvoicesByAirline(String airlineName);
     Invoice findInvoiceByNum(int invoiceNumber);
 
-    int insertInvoice(Airline airline, Invoice invoice);
+    int insertInvoice(Invoice invoice);
     int updateInvoice(Invoice invoice);
     int deleteInvoice(Invoice invoice);
 
     boolean isInDatabase(Invoice invoice);
     boolean isInDatabase(int invNumber);
+    int lastInvoiceNumber();
 
 }
