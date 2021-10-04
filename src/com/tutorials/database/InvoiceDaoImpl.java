@@ -18,7 +18,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
     public static final String QUERY_INVOICES_BY_INVOICE_NUMBER = "SELECT * FROM invoices WHERE invoice_number = ?";
     public static final String UPDATE_INVOICE = "UPDATE invoices SET airline_name = ?, date = ?," +
             "flight_number = ?, reg_number = ?, uplift_liters = ?, uplift_kg = ?, price = ?, total_price = ?" +
-            "  WHERE airline_name = ?";
+            "  WHERE invoice_number = ?";
     public static final String DELETE_INVOICE = "DELETE FROM invoices WHERE invoice_number = ?";
     public static final String GET_LAST_INVOICE_NUMBER = "SELECT * FROM invoices ORDER BY invoice_number DESC LIMIT 1";
 
@@ -161,6 +161,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
                 updateInvoice.setDouble(6, invoice.getUpliftInKg());
                 updateInvoice.setDouble(7, invoice.getPrice());
                 updateInvoice.setDouble(8, invoice.getTotalPrice());
+                updateInvoice.setInt(9, invoice.getInvoiceNumber());
 
                 status = updateInvoice.executeUpdate();
 

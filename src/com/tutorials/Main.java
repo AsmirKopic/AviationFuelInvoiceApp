@@ -1,33 +1,32 @@
 package com.tutorials;
 
-import com.tutorials.database.AirlineDaoImpl;
-import com.tutorials.database.InvoiceDaoImpl;
-import com.tutorials.management.AirlineManagement;
-import com.tutorials.management.InvoiceManagement;
+import com.tutorials.database.AirlineDatabase;
 import com.tutorials.model.Airline;
-import com.tutorials.model.Invoice;
 
-import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
-    AirlineDaoImpl airlineDb = new AirlineDaoImpl();
-    InvoiceDaoImpl invoiceDb = new InvoiceDaoImpl();
+    public static void main(String[] args) {
+    AirlineDatabase airlineDb = new AirlineDatabase();
+    if (!airlineDb.open()){
+        System.out.println("Cant open datasource");
+    }
 
-/**
- * This program represents aviation fueling invoice system
- * Will take input from delivery voucher provided in time of aircraft refueling.
- * Company name, Delivery voucher number, time of refuelling, specific weight of fuel, amount of liters.
- * Quantities will be calculated using specific weight (0.8) on time of refueling.
- *
- */
-
-        // AirlineManagement.runAirlineManagement();
-        System.out.println(invoiceDb.lastInvoiceNumber());
-        InvoiceManagement.runInvoiceManagement();
+    // This program represents aviation fueling invoice system
+	// Will take input from delivery voucher provided in time of aircraft refueling.
+    // Company name, Delivery voucher number, time of refuelling, specific weight of fuel, amount of liters.
+    // Quantities will be calculated using specific weight (0.8) on time of refueling.
 
 
+
+        List<Airline> airlines = airlineDb.listOfAirlines();
+
+        airlines.forEach(airline -> System.out.println(airline));
+
+
+
+
+        airlineDb.close();
     }
 }
