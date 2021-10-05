@@ -48,7 +48,6 @@ public class AirlineManagement {
                     case 6 -> {
                         menu = false;
                         System.out.println("Exit Airline management.");
-                        System.exit(0);
                     }
                     default -> System.out.println("Invalid Option! Please enter again!");
                 }
