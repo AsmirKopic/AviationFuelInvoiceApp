@@ -62,8 +62,6 @@ public class AirlineManagement {
     // need to fix printing
     public static void listAllAirlines() {
 
-        System.out.println("===========================================");
-
         List<Airline> listOfAirlines = airlineImpl.listAllAirlines();
         listOfAirlines.forEach( airline -> System.out.printf("%-20s $%.2f%n", airline.getName(), airline.getPriceTerms(), airline.getPaymentTerms()));
 

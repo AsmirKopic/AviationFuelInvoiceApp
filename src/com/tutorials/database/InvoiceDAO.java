@@ -10,6 +10,8 @@ public interface InvoiceDAO {
     List<Invoice> listAllInvoices();
     List<Invoice> listInvoicesByAirline(String airlineName);
     Invoice findInvoiceByNum(int invoiceNumber);
+    Invoice sumInvoicesByAirline(String airlineName);
+    Invoice sumAllInvoices();
 
     int insertInvoice(Invoice invoice);
     int updateInvoice(Invoice invoice);
@@ -17,6 +19,7 @@ public interface InvoiceDAO {
 
     boolean isInDatabase(Invoice invoice);
     boolean isInDatabase(int invNumber);
+
     int lastInvoiceNumber();
 
 }

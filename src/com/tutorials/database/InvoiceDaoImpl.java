@@ -13,14 +13,33 @@ public class InvoiceDaoImpl implements InvoiceDAO {
     public static final String NEW_INVOICE = "INSERT INTO invoices " +
             "(airline_name, date, flight_number, reg_number, uplift_liters, uplift_kg, price, total_price )" +
             " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
     public static final String QUERY_INVOICES = "SELECT * FROM invoices";
+
     public static final String QUERY_INVOICES_BY_AIRLINE = "SELECT * FROM invoices WHERE airline_name = ?";
+
     public static final String QUERY_INVOICES_BY_INVOICE_NUMBER = "SELECT * FROM invoices WHERE invoice_number = ?";
+
     public static final String UPDATE_INVOICE = "UPDATE invoices SET airline_name = ?, date = ?," +
             "flight_number = ?, reg_number = ?, uplift_liters = ?, uplift_kg = ?, price = ?, total_price = ?" +
             "  WHERE invoice_number = ?";
+
     public static final String DELETE_INVOICE = "DELETE FROM invoices WHERE invoice_number = ?";
+
     public static final String GET_LAST_INVOICE_NUMBER = "SELECT * FROM invoices ORDER BY invoice_number DESC LIMIT 1";
+
+    public static final String SUM_ALL_INVOICES = "SELECT " +
+            "SUM(uplift_liters) total_liters, " +
+            "SUM(uplift_kg) total_kg, " +
+            "SUM(total_price) sum_price " +
+            "FROM invoices";
+
+    public static final String SUM_INVOICES_BY_AIRLINE = "SELECT " +
+            "SUM(uplift_liters) total_liters, " +
+            "SUM(uplift_kg) total_kg, " +
+            "SUM(total_price) sum_price " +
+            "FROM invoices " +
+            "WHERE airline_name = ?";
 
     @Override
     public List<Invoice> listAllInvoices() {
@@ -241,5 +260,54 @@ public class InvoiceDaoImpl implements InvoiceDAO {
         }
     }
 
+    @Override
+    public Invoice sumInvoicesByAirline(String airlineName) {
 
+        Invoice totalAirlineInvoice = null;
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement getSumInvoicesByAirline = conn.prepareStatement(SUM_INVOICES_BY_AIRLINE)) {
+
+            getSumInvoicesByAirline.setString(1, airlineName);
+            ResultSet results = getSumInvoicesByAirline.executeQuery();
+
+            while (results.next()) {
+                totalAirlineInvoice = new Invoice();
+
+                totalAirlineInvoice.setAirlineName(airlineName);
+                totalAirlineInvoice.setUpliftLiters(results.getInt(1));
+                totalAirlineInvoice.setUpliftInKg(results.getDouble(2));
+                totalAirlineInvoice.setPrice(results.getDouble(3));
+            }
+
+            results.close();
+
+        } catch (SQLException e) {
+            System.out.println("Cant execute query - Sum invoice by airline " + e.getMessage());
+        }
+        return totalAirlineInvoice;
+    }
+
+    @Override
+    public Invoice sumAllInvoices() {
+
+        Invoice totalInvoice = null;
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement getSumAllInvoices = conn.prepareStatement(SUM_ALL_INVOICES);
+             ResultSet results = getSumAllInvoices.executeQuery()) {
+
+            while (results.next()) {
+                totalInvoice = new Invoice();
+
+                totalInvoice.setUpliftLiters(results.getInt(1));
+                totalInvoice.setUpliftInKg(results.getDouble(2));
+                totalInvoice.setPrice(results.getDouble(3));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Cant execute query - Sum all invoices " + e.getMessage());
+        }
+        return totalInvoice;
+    }
 }

@@ -246,7 +246,10 @@ public class InvoiceManagement {
     }
 
     private static void printSumInvoicesByAirline() {
-        // print sum of all airline invoices at the bottom of the table
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter airline name: ");
+
     }
 
     private static void sumAllInvoices() {
