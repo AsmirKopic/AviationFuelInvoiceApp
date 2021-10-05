@@ -65,7 +65,6 @@ public class InvoiceManagement {
             } catch (Exception e) {
                 System.out.println("Management menu exception" + e.getMessage());
             }
-
         }
     }
 
@@ -254,10 +253,12 @@ public class InvoiceManagement {
         if (airlineImpl.isInDatabase(airlineName)) {
             Invoice totalInvoice = invoiceImpl.sumInvoicesByAirline(airlineName);
 
-            System.out.println("Airline name: " + airlineName +
-                                "Total uplift liters: " + totalInvoice.getUpliftLiters() +
-                                "Total uplift kg: " + totalInvoice.getUpliftInKg() +
-                                "Total price: " + totalInvoice.getPrice());
+            if (totalInvoice != null) {
+                System.out.println("Airline name: " + airlineName +
+                        "Total uplift liters: " + totalInvoice.getUpliftLiters() +
+                        "Total uplift kg: " + totalInvoice.getUpliftInKg() +
+                        "Total price: " + totalInvoice.getPrice());
+            }
 
         } else {
             System.out.println("No invoices to summarize.");
@@ -265,7 +266,16 @@ public class InvoiceManagement {
     }
 
     private static void sumAllInvoices() {
-        // print sum of all invoices at the bottom of the table
+
+        Invoice totalInvoice = invoiceImpl.sumAllInvoices();
+
+        if (totalInvoice != null) {
+
+            System.out.println("Total uplift liters: " + totalInvoice.getUpliftLiters() +
+                    "Total uplift kg: " + totalInvoice.getUpliftInKg() +
+                    "Total price: " + totalInvoice.getPrice());
+        }
     }
+
 
 }
