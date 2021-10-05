@@ -53,7 +53,7 @@ public class InvoiceManagement {
                     case 4 -> insertNewInvoice();
                     case 5 -> updateInvoice();
                     case 6 -> deleteInvoice();
-                    case 7 -> printSumInvoicesByAirline();
+                    case 7 -> sumInvoicesByAirline();
                     case 8 -> sumAllInvoices();
                     case 9 -> {
                         menu = false;
@@ -245,11 +245,23 @@ public class InvoiceManagement {
         }
     }
 
-    private static void printSumInvoicesByAirline() {
+    private static void sumInvoicesByAirline() {
 
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter airline name: ");
+        String airlineName = input.nextLine();
 
+        if (airlineImpl.isInDatabase(airlineName)) {
+            Invoice totalInvoice = invoiceImpl.sumInvoicesByAirline(airlineName);
+
+            System.out.println("Airline name: " + airlineName +
+                                "Total uplift liters: " + totalInvoice.getUpliftLiters() +
+                                "Total uplift kg: " + totalInvoice.getUpliftInKg() +
+                                "Total price: " + totalInvoice.getPrice());
+
+        } else {
+            System.out.println("No invoices to summarize.");
+        }
     }
 
     private static void sumAllInvoices() {
