@@ -6,6 +6,9 @@ import com.tutorials.model.Airline;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class to navigate Airline management options
+ */
 public class AirlineManagement {
 
     public static final String AIRLINE_MANAGEMENT_MENU =
@@ -26,6 +29,9 @@ public class AirlineManagement {
 
     static AirlineDaoImpl airlineImpl = new AirlineDaoImpl();
 
+    /**
+     * Method for choosing options on Airline Management menu.
+     */
     public static void runAirlineManagement() {
 
         int option;

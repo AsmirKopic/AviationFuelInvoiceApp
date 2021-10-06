@@ -78,7 +78,6 @@ public interface AirlineDAO {
      * @return true if Airline name is already in database or false if it is not.
      */
     boolean isInDatabase(String airlineName);
-
 }
 
 

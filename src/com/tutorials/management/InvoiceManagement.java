@@ -8,6 +8,9 @@ import com.tutorials.model.Invoice;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class to navigate Invoice management options
+ */
 public class InvoiceManagement {
 
     public static final String INVOICE_MANAGEMENT_MENU =
@@ -33,6 +36,9 @@ public class InvoiceManagement {
     static AirlineDaoImpl airlineImpl = new AirlineDaoImpl();
     static InvoiceDaoImpl invoiceImpl = new InvoiceDaoImpl();
 
+    /**
+     * Method for choosing options on Invoice Management menu.
+     */
     public static void runInvoiceManagement() {
 
         int option;

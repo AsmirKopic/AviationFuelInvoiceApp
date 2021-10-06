@@ -2,6 +2,10 @@ package com.tutorials.management;
 
 import java.util.Scanner;
 
+/**
+ * Main application class to navigate Airline Management or Invoice Management parts of application.
+ *
+ */
 public class Application {
 
     public static final String APP_MENU =
@@ -18,6 +22,9 @@ public class Application {
                    ===========================================
             """;
 
+    /**
+     * Method for choosing options on main menu.
+     */
     public static void startApplication() {
 
         int option;

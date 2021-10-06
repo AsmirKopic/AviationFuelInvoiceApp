@@ -3,12 +3,10 @@ package com.tutorials;
 import com.tutorials.management.Application;
 
 /**
- *
+ * Main class for starting application.
  */
 public class Main {
-    /**
-     * Main for starting application.
-     */
+
     public static void main(String[] args) {
 
         /**
