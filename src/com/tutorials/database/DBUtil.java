@@ -9,7 +9,10 @@ public class DBUtil {
   //public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\Java Programms\\AviationFuel\\" + DB_NAME;
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\asmir\\Desktop\\AviationFuelTEST\\" + DB_NAME;
 
-    // static method that creates a connection to the database and return the connection object
+    /**
+     * This is static method that creates a connection to the database.
+     * @return connection object (conn).
+     */
     public static Connection getConnection() {
 
         Connection conn = null;
@@ -23,6 +26,10 @@ public class DBUtil {
         return conn;
     }
 
+    /**
+     * This is static method for close open connection
+     * @param conn
+     */
     public static void closeConnection(Connection conn) {
 
         try {

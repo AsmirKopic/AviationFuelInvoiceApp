@@ -17,13 +17,13 @@ public interface InvoiceDAO {
 
     /**
      * <p>
-     * This method by using database query is returning list of invoices for particular
+     * This method by using database query is returning list of invoices for specific
      * airline in the database.
      * </p>
      * @param airlineName
      *                  this parameter is used to create database query for selecting
-     *                  invoices with particular airline name.
-     * @return list of Invoice objects (invoices) from database for particular airline name.
+     *                  invoices with specific airline name.
+     * @return list of Invoice objects (invoices) from database for specific airline name.
      */
     List<Invoice> listInvoicesByAirline(String airlineName);
 
@@ -41,7 +41,7 @@ public interface InvoiceDAO {
     /**
      * <p>
      * This method returning Invoice object which represents sum of all invoices for
-     * particular airline.
+     * specific airline.
      * Returned invoice contains sum of all invoice uplift liters, uplift in kg and
      * sum of total price.
      * </p>
@@ -77,7 +77,6 @@ public interface InvoiceDAO {
      * <p>
      * This method is used to update Invoice object in database.
      * </p>
-     *
      * @param invoice
      *                  this parameter is used to create database query for selecting
      *                  invoice that should be updated.
