@@ -41,6 +41,21 @@ public class InvoiceDaoImpl implements InvoiceDAO {
             "FROM invoices " +
             "WHERE airline_name = ?";
 
+
+//    ** Need to try implement **
+//
+//    private Connection connection;
+//
+//    public InvoiceDaoImpl() {
+//        connection = DBUtil.getConnection();
+//    }
+//
+//    public InvoiceDaoImpl(Connection conn) {
+//        connection = conn;
+//    }
+
+
+
     @Override
     public List<Invoice> listAllInvoices() {
 
