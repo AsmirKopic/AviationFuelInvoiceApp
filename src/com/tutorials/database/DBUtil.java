@@ -28,7 +28,7 @@ public class DBUtil {
 
     /**
      * This is static method for close open connection
-     * @param conn
+     * @param conn Connection object which needs to be closed
      */
     public static void closeConnection(Connection conn) {
 
