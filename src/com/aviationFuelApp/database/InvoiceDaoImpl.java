@@ -41,7 +41,7 @@ public class InvoiceDaoImpl implements InvoiceDAO {
             "WHERE airline_name = ?";
 
 
-//    ** Need to try implement **
+//    ** Need to implement **
 //
 //    private Connection connection;
 //
@@ -52,7 +52,6 @@ public class InvoiceDaoImpl implements InvoiceDAO {
 //    public InvoiceDaoImpl(Connection conn) {
 //        connection = conn;
 //    }
-
 
 
     @Override
@@ -156,24 +155,22 @@ public class InvoiceDaoImpl implements InvoiceDAO {
 
         int status = 0;
 
-        if (!isInDatabase(invoice)) {
-            try (Connection conn = DBUtil.getConnection();
-                 PreparedStatement newInvoice = conn.prepareStatement(NEW_INVOICE)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement newInvoice = conn.prepareStatement(NEW_INVOICE)) {
 
-                newInvoice.setString(1, invoice.getAirlineName());
-                newInvoice.setString(2, invoice.getDate());
-                newInvoice.setString(3, invoice.getFlightNumber());
-                newInvoice.setString(4, invoice.getRegistration());
-                newInvoice.setInt(5, invoice.getUpliftLiters());
-                newInvoice.setDouble(6, invoice.getUpliftInKg());
-                newInvoice.setDouble(7, invoice.getPrice());
-                newInvoice.setDouble(8, invoice.getTotalPrice());
+            newInvoice.setString(1, invoice.getAirlineName());
+            newInvoice.setString(2, invoice.getDate());
+            newInvoice.setString(3, invoice.getFlightNumber());
+            newInvoice.setString(4, invoice.getRegistration());
+            newInvoice.setInt(5, invoice.getUpliftLiters());
+            newInvoice.setDouble(6, invoice.getUpliftInKg());
+            newInvoice.setDouble(7, invoice.getPrice());
+            newInvoice.setDouble(8, invoice.getTotalPrice());
 
-                status = newInvoice.executeUpdate();
+            status = newInvoice.executeUpdate();
 
-            } catch (Exception e) {
-                System.out.println("Cant insert new Invoice. " + e.getMessage());
-            }
+        } catch (Exception e) {
+            System.out.println("Cant insert new Invoice. " + e.getMessage());
         }
         return status;
     }
@@ -182,25 +179,23 @@ public class InvoiceDaoImpl implements InvoiceDAO {
     public int updateInvoice(Invoice invoice) {
         int status = 0;
 
-        if (isInDatabase(invoice)) {
-            try (Connection conn = DBUtil.getConnection();
-                 PreparedStatement updateInvoice = conn.prepareStatement(UPDATE_INVOICE)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement updateInvoice = conn.prepareStatement(UPDATE_INVOICE)) {
 
-                updateInvoice.setString(1, invoice.getAirlineName());
-                updateInvoice.setString(2, invoice.getDate());
-                updateInvoice.setString(3, invoice.getFlightNumber());
-                updateInvoice.setString(4, invoice.getRegistration());
-                updateInvoice.setInt(5, invoice.getUpliftLiters());
-                updateInvoice.setDouble(6, invoice.getUpliftInKg());
-                updateInvoice.setDouble(7, invoice.getPrice());
-                updateInvoice.setDouble(8, invoice.getTotalPrice());
-                updateInvoice.setInt(9, invoice.getInvoiceNumber());
+            updateInvoice.setString(1, invoice.getAirlineName());
+            updateInvoice.setString(2, invoice.getDate());
+            updateInvoice.setString(3, invoice.getFlightNumber());
+            updateInvoice.setString(4, invoice.getRegistration());
+            updateInvoice.setInt(5, invoice.getUpliftLiters());
+            updateInvoice.setDouble(6, invoice.getUpliftInKg());
+            updateInvoice.setDouble(7, invoice.getPrice());
+            updateInvoice.setDouble(8, invoice.getTotalPrice());
+            updateInvoice.setInt(9, invoice.getInvoiceNumber());
 
-                status = updateInvoice.executeUpdate();
+            status = updateInvoice.executeUpdate();
 
-            } catch (SQLException e) {
-                System.out.println(" Cant execute query - Update Airline " + e.getMessage());
-            }
+        } catch (SQLException e) {
+            System.out.println(" Cant execute query - Update Airline " + e.getMessage());
         }
         return status;
     }
@@ -210,17 +205,14 @@ public class InvoiceDaoImpl implements InvoiceDAO {
 
         int status = 0;
 
-        if (isInDatabase(invoice)) {
-            try (Connection conn = DBUtil.getConnection();
-                 PreparedStatement deleteInvoice = conn.prepareStatement(DELETE_INVOICE)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement deleteInvoice = conn.prepareStatement(DELETE_INVOICE)) {
 
-                deleteInvoice.setInt(1, invoice.getInvoiceNumber());
+            deleteInvoice.setInt(1, invoice.getInvoiceNumber());
+            status = deleteInvoice.executeUpdate();
 
-                status = deleteInvoice.executeUpdate();
-
-            } catch (Exception e) {
-                System.out.println("Cant execute query - Delete Invoice " + e.getMessage());
-            }
+        } catch (Exception e) {
+            System.out.println("Cant execute query - Delete Invoice " + e.getMessage());
         }
         return status;
     }
