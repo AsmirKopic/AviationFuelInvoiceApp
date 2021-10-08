@@ -1,7 +1,7 @@
-package com.tutorials.management;
+package com.aviationFuelApp.management;
 
-import com.tutorials.database.AirlineDaoImpl;
-import com.tutorials.model.Airline;
+import com.aviationFuelApp.database.AirlineDaoImpl;
+import com.aviationFuelApp.model.Airline;
 
 import java.util.List;
 import java.util.Scanner;

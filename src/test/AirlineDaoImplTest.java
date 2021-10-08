@@ -1,8 +1,8 @@
 package test;
 
-import com.tutorials.database.AirlineDAO;
-import com.tutorials.database.DBUtil;
-import com.tutorials.model.Airline;
+import com.aviationFuelApp.database.AirlineDaoImpl;
+import com.aviationFuelApp.database.DBUtil;
+import com.aviationFuelApp.model.Airline;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AirlineDaoImplTest {
 
-    private static AirlineDAO airlineDao;
+    private static AirlineDaoImpl airlineDao;
 
     @BeforeAll
     static void init() {
@@ -25,6 +25,7 @@ class AirlineDaoImplTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        airlineDao = new AirlineDaoImpl();
     }
 
     @AfterAll
@@ -63,7 +64,7 @@ class AirlineDaoImplTest {
         airlineDao.updateAirline(airline);
 
         Airline airlineFromDb = airlineDao.findAirlineByName("Test Airline");
-        assertEquals(250, airlineFromDb.getPriceTerms());
+        assertEquals(250, airlineFromDb.getPaymentTerms());
     }
 
     @Test
@@ -73,10 +74,9 @@ class AirlineDaoImplTest {
         airline.setName("Test Airline");
         airline.setPriceTerms(210);
         airline.setPaymentTerms(15);
-
+        airlineDao.insertAirline(airline);
         airlineDao.deleteAirline("Test Airline");
-        Airline airlineFromDb = airlineDao.findAirlineByName("Test Airline");
-        assertNull(airlineFromDb.getName(), "Airline name should be null");
+        assertFalse(airlineDao.isInDatabase(airline));
     }
 
     @Test

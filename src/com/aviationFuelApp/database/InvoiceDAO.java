@@ -1,7 +1,6 @@
-package com.tutorials.database;
+package com.aviationFuelApp.database;
 
-import com.tutorials.model.Airline;
-import com.tutorials.model.Invoice;
+import com.aviationFuelApp.model.Invoice;
 
 import java.util.List;
 

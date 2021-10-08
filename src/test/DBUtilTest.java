@@ -8,9 +8,10 @@ class DBUtilTest {
 
     @Test
     void getConnection() {
-    }
 
-    @Test
+    }    @Test
     void closeConnection() {
     }
+
+
 }

@@ -1,6 +1,6 @@
-package com.tutorials.database;
+package com.aviationFuelApp.database;
 
-import com.tutorials.model.Airline;
+import com.aviationFuelApp.model.Airline;
 
 import java.sql.*;
 import java.util.ArrayList;

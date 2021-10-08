@@ -1,4 +1,4 @@
-package com.tutorials.database;
+package com.aviationFuelApp.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,6 @@
-package com.tutorials;
+package com.aviationFuelApp;
 
-import com.tutorials.management.Application;
+import com.aviationFuelApp.management.Application;
 
 /**
  * Main class for starting application.

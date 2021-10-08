@@ -1,4 +1,4 @@
-package com.tutorials.management;
+package com.aviationFuelApp.management;
 
 import java.util.Scanner;
 

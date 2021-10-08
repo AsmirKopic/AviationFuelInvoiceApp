@@ -1,4 +1,4 @@
-package com.tutorials.model;
+package com.aviationFuelApp.model;
 
 public class Invoice {
 
