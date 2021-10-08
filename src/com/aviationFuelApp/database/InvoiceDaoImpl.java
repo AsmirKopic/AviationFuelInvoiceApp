@@ -53,7 +53,6 @@ public class InvoiceDaoImpl implements InvoiceDAO {
 //        connection = conn;
 //    }
 
-
     @Override
     public List<Invoice> listAllInvoices() {
 
