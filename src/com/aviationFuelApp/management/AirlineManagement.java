@@ -14,8 +14,8 @@ public class AirlineManagement {
     public static final String AIRLINE_MANAGEMENT_MENU =
 
             """
-                    ======= AIRLINE MANAGEMENT MENU ===========
-                    ===========================================
+                    ======= AIRLINE MANAGEMENT MENU ==========
+                    ==========================================
                     Enter an option
                     ===========================================
                     1. List all Airlines in database

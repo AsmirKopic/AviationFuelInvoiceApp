@@ -16,78 +16,57 @@ class AirlineDaoImplTest {
 
     private static AirlineDaoImpl airlineDao;
 
-    @BeforeAll
-    static void init() {
+    /**
+     * Test that all inserts, reads, updates and deletes work as expected.
+     */
+    @Test
+    void crudTest() throws SQLException {
+
         Connection conn = DBUtil.getConnection();
-        try {
-            // set auto commit false so any operation in this test will be discarded.
-            conn.setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        conn.setAutoCommit(false);
+
         airlineDao = new AirlineDaoImpl();
-    }
 
-    @AfterAll
-    static void teardown() {
-        Connection conn = DBUtil.getConnection();
         try {
-            conn.setAutoCommit(true);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String airlineName = "Test Airline";
+            double priceTerms = 210;
+            int paymentTerms = 15;
+
+            Airline airline = new Airline();
+            airline.setName(airlineName);
+            airline.setPriceTerms(priceTerms);
+            airline.setPaymentTerms(paymentTerms);
+
+            // isInDatabase method test
+            assertTrue(airlineDao.isInDatabase(airline), "Should be true");
+
+            // insertAirline method test
+            airlineDao.insertAirline(airline);
+            Airline airlineFromDb = airlineDao.findAirlineByName(airlineName);
+
+            assertEquals(airlineName, airlineFromDb.getName(), "Airline name must be equals");
+
+            // updateAirline method test
+            int newPaymentTerms = 250;
+
+            airline.setPaymentTerms(newPaymentTerms);
+            airlineDao.updateAirline(airline);
+            airlineFromDb = airlineDao.findAirlineByName(airlineName);
+
+            assertEquals(newPaymentTerms, airlineFromDb.getPaymentTerms(), "Should be true");
+
+            // deleteAirline method test
+            airlineDao.deleteAirline(airlineName);
+            assertFalse(airlineDao.isInDatabase(airline));
+
+            // findAirlineByName method test
+            assertNull(airlineDao.findAirlineByName(airlineName));
+
+        } finally {
+            conn.rollback();
+            conn.close();
         }
-    }
 
-    @Test
-    void insertAirlineTest() {
-
-        Airline airline = new Airline();
-        airline.setName("Test Airline");
-        airline.setPriceTerms(210);
-        airline.setPaymentTerms(15);
-
-        airlineDao.insertAirline(airline);
-        Airline airlineFromDb = airlineDao.findAirlineByName("Test Airline");
-        assertEquals("Test Airline", airlineFromDb.getName(), "Airline name must be equals");
-    }
-
-    @Test
-    void updateAirlineTest() {
-
-        Airline airline = new Airline();
-        airline.setName("Test Airline");
-        airline.setPriceTerms(210);
-        airline.setPaymentTerms(15);
-
-        airlineDao.insertAirline(airline);
-        airline.setPaymentTerms(250);
-        airlineDao.updateAirline(airline);
-
-        Airline airlineFromDb = airlineDao.findAirlineByName("Test Airline");
-        assertEquals(250, airlineFromDb.getPaymentTerms());
-    }
-
-    @Test
-    void deleteAirlineTest() {
-
-        Airline airline = new Airline();
-        airline.setName("Test Airline");
-        airline.setPriceTerms(210);
-        airline.setPaymentTerms(15);
-        airlineDao.insertAirline(airline);
-        airlineDao.deleteAirline("Test Airline");
-        assertFalse(airlineDao.isInDatabase(airline));
-    }
-
-    @Test
-    void isInDatabaseTest() {
-
-        Airline airline = new Airline();
-        airline.setName("Test Airline");
-        airline.setPriceTerms(210);
-        airline.setPaymentTerms(15);
-
-        assertTrue(airlineDao.isInDatabase(airline), "Should be true");
     }
 
 }
