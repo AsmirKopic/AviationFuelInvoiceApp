@@ -30,12 +30,14 @@ class InvoiceDaoImplTest {
             e.printStackTrace();
         }
         invoiceDao = new InvoiceDaoImpl();
+        airlineDao = new AirlineDaoImpl();
     }
 
     @AfterAll
     static void teardown() {
         Connection conn = DBUtil.getConnection();
         try {
+            conn.rollback();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +82,7 @@ class InvoiceDaoImplTest {
         invoiceDao.insertInvoice(invoice);
 
         Invoice invoiceInDb = invoiceDao.findInvoiceByNum(invoice.getInvoiceNumber());
-        assertEquals(invoiceInDb, invoice, "Should be true");
+        assertSame(invoiceInDb, invoice, "Should be true");
     }
 
     @Test
