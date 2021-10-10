@@ -37,14 +37,14 @@ class AirlineDaoImplTest {
             airline.setPriceTerms(priceTerms);
             airline.setPaymentTerms(paymentTerms);
 
-            // isInDatabase method test
-            assertTrue(airlineDao.isInDatabase(airline), "Should be true");
-
             // insertAirline method test
             airlineDao.insertAirline(airline);
             Airline airlineFromDb = airlineDao.findAirlineByName(airlineName);
 
             assertEquals(airlineName, airlineFromDb.getName(), "Airline name must be equals");
+
+            // isInDatabase method test
+            assertTrue(airlineDao.isInDatabase(airline), "Is in data base - Should be true");
 
             // updateAirline method test
             int newPaymentTerms = 250;
@@ -53,7 +53,7 @@ class AirlineDaoImplTest {
             airlineDao.updateAirline(airline);
             airlineFromDb = airlineDao.findAirlineByName(airlineName);
 
-            assertEquals(newPaymentTerms, airlineFromDb.getPaymentTerms(), "Should be true");
+            assertEquals(newPaymentTerms, airlineFromDb.getPaymentTerms(), "Update airline - Should be true");
 
             // deleteAirline method test
             airlineDao.deleteAirline(airlineName);
