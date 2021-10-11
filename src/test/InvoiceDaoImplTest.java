@@ -19,10 +19,13 @@ class InvoiceDaoImplTest {
 
     private static InvoiceDaoImpl invoiceDao;
     private static AirlineDaoImpl airlineDao;
+    private static Connection conn;
 
     @BeforeAll
     static void init() {
-        Connection conn = DBUtil.getConnection();
+
+        conn = DBUtil.getConnection();
+
         try {
             // set auto commit false so any operation in this test will be discarded.
             conn.setAutoCommit(false);
@@ -34,14 +37,9 @@ class InvoiceDaoImplTest {
     }
 
     @AfterAll
-    static void teardown() {
-        Connection conn = DBUtil.getConnection();
-        try {
-            conn.rollback();
-            conn.setAutoCommit(true);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    static void teardown() throws SQLException {
+        conn.rollback();
+        conn.close();
     }
 
     @Test
