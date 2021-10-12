@@ -10,7 +10,7 @@ The interface is console based.
 ## Interface
 
       1. Main menu 
-      ![main menu](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/main%20menu.png)
+      ![alt text](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/main menu.png)
 
       2. Airline management menu
       (picture2)
