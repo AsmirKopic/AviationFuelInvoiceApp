@@ -9,18 +9,17 @@ The interface is console based.
 
 ## Interface
 
-      1. Main menu 
-      
-      
-      ![step1](../master/AviationFuelTEST/images/interface1.PNG)
-    
-    
+#### 1. Main menu
 
-      2. Airline management menu
-      (picture2)
+![interface1](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/interface.png)
 
-      3. Invoice management menu
-      (pciture3)
+#### 2. Airline management menu
+
+![interface2](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/interface2.png)
+
+#### 3. Invoice management menu
+
+![interface3](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/interface3.png)
 
 
 ## First use instructions
@@ -50,7 +49,7 @@ we enter the basic data into the application:
 
 
 ## 🛠 Skills
-Java, JDBC, SQLlite, Junit
+Java, JDBC, SQLlite, JUnit
 
 
   
