@@ -48,8 +48,13 @@ we enter the basic data into the application:
             
 
 
-## 🛠 Skills
+## 🛠 Languages / Tools used
 Java, JDBC, SQLlite, JUnit
 
+## Author
 
+**Asmir Kopić**
+
+- Github: [@AsmirKopic](https://github.com/AsmirKopic)
+- Linkedin: [@AsmirKopić](https://ba.linkedin.com/in/asmir-kopic-7b0a379a)
   
