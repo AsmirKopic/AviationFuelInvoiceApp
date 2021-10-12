@@ -9,6 +9,11 @@ The interface is console based.
 
 ## Interface
 
+<p align="middle">
+   <img src="../master/images/main menu.PNG" width="400"/>
+  
+</p>
+
       1. Main menu 
       (picture1)
 
