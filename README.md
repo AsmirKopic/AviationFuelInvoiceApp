@@ -9,13 +9,8 @@ The interface is console based.
 
 ## Interface
 
-<p align="middle">
-   <img src="../master/images/main menu.PNG" width="400"/>
-  
-</p>
-
       1. Main menu 
-      (picture1)
+      ![main menu](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/main%20menu.png)
 
       2. Airline management menu
       (picture2)
