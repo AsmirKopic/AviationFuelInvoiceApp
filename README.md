@@ -12,7 +12,7 @@ The interface is console based.
       1. Main menu 
       
       
-      ![Alt text](https://github.com/AsmirKopic/AviationFuelTEST/blob/master/images/main menu.png?raw=true "Title")
+      ![step1](../master/AviationFuelTEST/images/interface1.PNG)
     
     
 
@@ -47,14 +47,6 @@ we enter the basic data into the application:
    *	Price terms (Based on what payment terms airline have).
    * 	Total price (total = kg value * price terms).
             
-                  
-
-
-
-
-
-
-
 
 
 ## 🛠 Skills
