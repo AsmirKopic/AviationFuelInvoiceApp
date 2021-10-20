@@ -89,17 +89,16 @@ public class Invoice {
     }
 
     @Override
-    public String toString() {
-        return "Invoice{" +
-                "invoiceNumber=" + invoiceNumber +
-                ", airlineName='" + airlineName + '\'' +
-                ", date='" + date + '\'' +
-                ", flightNumber='" + flightNumber + '\'' +
-                ", registration='" + registration + '\'' +
-                ", upliftLiters=" + upliftLiters +
-                ", upliftInKg=" + getUpliftInKg() +
-                ", price=" + price +
-                ", totalPrice=" + getTotalPrice() +
-                '}';
+    public String toString(){
+        return String.format("%10d%20s%10s%10s%10s%8d%8d%8d%8d",
+            invoiceNumber,
+            airlineName,
+            date,
+            flightNumber,
+            registration,
+            upliftLiters,
+            getUpliftInKg(),
+            price,
+            getTotalPrice());
     }
 }
