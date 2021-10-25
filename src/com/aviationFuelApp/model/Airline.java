@@ -45,6 +45,11 @@ public class Airline {
 
     @Override
     public String toString() {
-        return this.name + "\t\tprice terms: " + getPriceTerms() + "\t\tpayment terms: " + getPaymentTerms() ;
+        return String.format("%20s%15.2f%14d", getName(), getPriceTerms(), getPaymentTerms());
+
+
+
+
+        //return this.name + "\t\tprice terms: " + getPriceTerms() + "\t\tpayment terms: " + getPaymentTerms() ;
     }
 }

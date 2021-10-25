@@ -78,7 +78,16 @@ public class InvoiceManagement {
 
         System.out.println("LIST OF ALL INVOICES ");
         List<Invoice> listOfInvoices = invoiceImpl.listAllInvoices();
-        System.out.format("Invoice number\tAirline name\tDate\tFlight No.\tRegistration No\tUplift LIT\tUplift KG\tPrice\tTotal Price");
+        System.out.format("%5s\t%15s%15s%15s%15s\t%8s\t%8s\t%8s\t%8s",
+                "Invoice",
+                "Airline name",
+                "Date",
+                "Flight No.",
+                "Registration",
+                "Uplift LIT",
+                "Uplift KG",
+                "Price",
+                "Total Price"+ "\n");
         listOfInvoices.forEach( invoice -> System.out.println(invoice));
     }
 
@@ -95,7 +104,16 @@ public class InvoiceManagement {
         if (airlineImpl.isInDatabase(airlineName)) {
 
             List<Invoice> invoices = invoiceImpl.listInvoicesByAirline(airlineName);
-            System.out.format("Invoice number\tAirline name\tDate\tFlight No.\tRegistration No\tUplift LIT\tUplift KG\tPrice\tTotal Price");
+            System.out.format("%5s\t%15s%15s%15s%15s\t%8s\t%8s\t%8s\t%8s",
+                    "Invoice",
+                    "Airline name",
+                    "Date",
+                    "Flight No.",
+                    "Registration",
+                    "Uplift LIT",
+                    "Uplift KG",
+                    "Price",
+                    "Total Price"+ "\n");
             invoices.forEach( invoice -> System.out.println(invoice));
 
         } else {
@@ -112,7 +130,16 @@ public class InvoiceManagement {
 
         if (invoiceImpl.isInDatabase(invoiceNumber)) {
             Invoice invoice = invoiceImpl.findInvoiceByNum(invoiceNumber);
-            System.out.format("Invoice number\tAirline name\tDate\tFlight No.\tRegistration No\tUplift LIT\tUplift KG\tPrice\tTotal Price");
+            System.out.format("%5s\t%15s%15s%15s%15s\t%8s\t%8s\t%8s\t%8s",
+                    "Invoice",
+                    "Airline name",
+                    "Date",
+                    "Flight No.",
+                    "Registration",
+                    "Uplift LIT",
+                    "Uplift KG",
+                    "Price",
+                    "Total Price"+ "\n");
             System.out.println(invoice);
         } else {
             System.out.println("Cant find entered invoice.");

@@ -1,4 +1,4 @@
-package test;
+package test.database;
 
 import com.aviationFuelApp.database.DBUtil;
 import org.junit.jupiter.api.Test;

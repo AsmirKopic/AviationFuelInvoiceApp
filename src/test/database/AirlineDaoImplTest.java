@@ -1,4 +1,4 @@
-package test;
+package test.database;
 
 import com.aviationFuelApp.database.AirlineDaoImpl;
 import com.aviationFuelApp.database.DBUtil;

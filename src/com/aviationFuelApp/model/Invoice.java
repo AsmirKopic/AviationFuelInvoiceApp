@@ -90,7 +90,7 @@ public class Invoice {
 
     @Override
     public String toString(){
-        return String.format("%10d%20s%10s%10s%10s%8d%8f%8f%8f",
+        return String.format("%7d\t%15s%15s%15s%15s\t%10d%10.2f1%11.2f%15.2f",
             invoiceNumber,
             airlineName,
             date,

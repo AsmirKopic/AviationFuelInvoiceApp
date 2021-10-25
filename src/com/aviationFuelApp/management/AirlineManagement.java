@@ -68,7 +68,8 @@ public class AirlineManagement {
     public static void listAllAirlines() {
 
         List<Airline> listOfAirlines = airlineImpl.listAllAirlines();
-        listOfAirlines.forEach( airline -> System.out.printf("%-20s $%.2f%n", airline.getName(), airline.getPriceTerms(), airline.getPaymentTerms()));
+        System.out.format("%20s%15s%15s", "Airline name", "Price terms", "Payment terms" + "\n");
+        listOfAirlines.forEach( airline -> System.out.println(airline));
 
         System.out.println("===========================================");
 
@@ -86,6 +87,7 @@ public class AirlineManagement {
             airline = airlineImpl.findAirlineByName(name);
 
             if (airline != null) {
+                System.out.format("%20s%15s%15s", "Airline name", "Price terms", "Payment terms" + "\n");
                 System.out.println(airline);
             } else {
                 System.out.println("Cant find entered airline..");
