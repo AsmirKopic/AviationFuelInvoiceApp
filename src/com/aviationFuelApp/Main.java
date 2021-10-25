@@ -47,30 +47,7 @@ public class Main {
          *      - total price calculated
          */
 
-        //Application.startApplication();
-
-        System.out.format("%20s%15s%15s", "Airline name", "Price terms", "Payment terms" + "\n");
-
-        Airline airline1 = new Airline();
-        airline1.setName("Test Airline name");
-        airline1.setPriceTerms(450);
-        airline1.setPaymentTerms(30);
-
-        Airline airline2 = new Airline();
-        airline2.setName("Test11 Airline name");
-        airline2.setPriceTerms(450);
-        airline2.setPaymentTerms(30);
-
-        List<Airline> airlines = new ArrayList<>();
-
-        airlines.add(airline1);
-        airlines.add(airline2);
-
-        airlines.forEach(airline -> System.out.println(airline));
-
-
-
-
+        Application.startApplication();
     }
 }
 
