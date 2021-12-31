@@ -48,7 +48,7 @@ we enter the basic data into the application:
             
 
 
-## 🛠 Languages / Tools used
+## 🛠 Tools used
 Java, JDBC, SQLlite, JUnit
 
 ## Author
